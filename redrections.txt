@@ -1,0 +1,7 @@
+As a responsible and accomplished developer, when you encounter
+a bug in your application, what’s the first thing you do? Write
+a failing test case, of course, and only once that’s done do you focus
+on fixing the problem. But what about when the bug is not related to the behavior of your
+application, but rather to its configuration, display, or some other element outside 
+the purview of normal testing practices? 
+I contend that you can and should still write a failing test.
