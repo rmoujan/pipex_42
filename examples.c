@@ -1,22 +1,34 @@
-int main()
+// int main()
+// {
+//     int n;
+//     int filedes[2];
+//     char buffer[1025];
+//     char *message = "Hello, World!";
+
+//     pipe(filedes);
+//     write(filedes[1], message, strlen(message));
+
+//     if ((n = read ( filedes[0], buffer, 1024 ) ) >= 0) {
+//         buffer[n] = 0;  //terminate the string
+//         printf("read %d bytes from the pipe: %s\n", n, buffer);
+//     }  
+//     else
+//         perror("read");
+//     exit(0);
+// }
+
+#include "pipex.h"
+
+int main(int argc, char *argv[], char *env[])
 {
-    int n;
-    int filedes[2];
-    char buffer[1025];
-    char *message = "Hello, World!";
+  if (argc > 1)
+    if (execve(argv[1], argv + 1, argv[1]) == -1)
+      perror("execve");
 
-    pipe(filedes);
-    write(filedes[1], message, strlen(message));
+  printf("My pid is: %d\n", getpid());
 
-    if ((n = read ( filedes[0], buffer, 1024 ) ) >= 0) {
-        buffer[n] = 0;  //terminate the string
-        printf("read %d bytes from the pipe: %s\n", n, buffer);
-    }  
-    else
-        perror("read");
-    exit(0);
+  return 0;
 }
-
 
 // // int main()
 // // {

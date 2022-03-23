@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/03/23 16:28:52 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/03/23 17:33:21 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void checks_errors(void);
+void checks_errors(int argc);
 void test_files(char *argv[]);
 
 #endif
