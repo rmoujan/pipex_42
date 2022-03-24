@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/03/23 17:33:40 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/03/24 15:34:39 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int main(int argc, char *argv[])
 {
     checks_errors(argc);
     test_files(argv);
-    
     
     return (0);
 }
