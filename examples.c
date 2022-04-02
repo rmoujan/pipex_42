@@ -19,18 +19,28 @@
 
 #include "pipex.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char *envp[])
 {
-    char *env[] = {"argv[1]", NULL};
+  int id = fork();
   if (argc > 1)
-    if (execve(argv[1], argv + 1, NULL) == -1)
+  {
+    if (id == -1)
+      perror("ERROR FORK\n");
+    if (id == 0)
+    {
+           if (execve(argv[1], argv + 1, envp) == -1)
          perror("execve");
-
+    }
+    else{
+      wait(NULL);
+      printf("HALLO\n");
+    }
+    // if(id != 0)
+    //   wait(NULL);
   //printf("My pid is: %d\n", getpid());
-
+  }
   return 0;
 }
-
 // // int main()
 // // {
 // //     int fd1 = open("test.txt", O_WRONLY | O_APPEND);

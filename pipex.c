@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/03/24 15:34:39 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/02 10:04:41 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,25 @@ void test_files(char *argv[])
 
 int main(int argc, char *argv[])
 {
+    int id;
     checks_errors(argc);
     test_files(argv);
+    id = fork();
+
+    if (id < 0)
+        perror("ERROR");
+    //child process :
+    else if (id == 0)
+    {
+        //should do here the execeve function
+    }
+    //parent process :
+    else
+    {
+        wait(NULL);
+        printf("*****\n");
+    }    
+
     
     return (0);
 }
