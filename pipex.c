@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/02 10:04:41 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/02 11:47:24 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,15 @@ int main(int argc, char *argv[])
     //child process :
     else if (id == 0)
     {
-        //should do here the execeve function
+        //should do here the first execeve function to execute the cmd1
+         if (execve(argv[1], argv + 1, NULL) == -1)
+                perror("execve");
     }
     //parent process :
     else
     {
+        //will wait until the child process finish for bringing the data from child process!!
+        //should do here the second execeve function to execute the cmd2
         wait(NULL);
         printf("*****\n");
     }    

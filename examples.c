@@ -19,28 +19,63 @@
 
 #include "pipex.h"
 
-int main(int argc, char *argv[], char *envp[])
+int main(int argc, char *argv[])
 {
-  int id = fork();
-  if (argc > 1)
-  {
-    if (id == -1)
-      perror("ERROR FORK\n");
-    if (id == 0)
+    int id;
+    int fd[2];
+    // checks_errors(argc);
+    // test_files(argv);
+    if (pipe(fd) == -1)
     {
-           if (execve(argv[1], argv + 1, envp) == -1)
-         perror("execve");
+      printf("error \n");
+      return 1;
     }
-    else{
-      wait(NULL);
-      printf("HALLO\n");
+    id = fork();
+    if (id < 0)
+        perror("ERROR");
+    //child process :
+    else if (id == 0)
+    {
+        //should do here the first execeve function to execute the cmd1
+         if (execve(argv[1], argv + 1, NULL) == -1)
+                perror("execve");
+          
     }
-    // if(id != 0)
-    //   wait(NULL);
-  //printf("My pid is: %d\n", getpid());
-  }
-  return 0;
+    //parent process :
+    else
+    {
+        //will wait until the child process finish (for bringing the data from C.process!!)
+        //should do here the second execeve function to execute the cmd2
+        wait(NULL);
+        printf("Hallo from parent process\n");
+    }    
+    return (0);
 }
+
+
+
+// int main(int argc, char *argv[], char *envp[])
+// {
+//   int id = fork();
+//   if (argc > 1)
+//   {
+//     if (id == -1)
+//       perror("ERROR FORK\n");
+//     if (id == 0)
+//     {
+//            if (execve(argv[1], argv + 1, envp) == -1)
+//          perror("execve");
+//     }
+//     else{
+//       wait(NULL);
+//       printf("HALLO\n");
+//     }
+//     // if(id != 0)
+//     //   wait(NULL);
+//   //printf("My pid is: %d\n", getpid());
+//   }
+//   return 0;
+// }
 // // int main()
 // // {
 // //     int fd1 = open("test.txt", O_WRONLY | O_APPEND);
