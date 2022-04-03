@@ -42,14 +42,17 @@ int main(int argc, char *argv[])
         buffer = get_next_line(fd[0]);
         while (buffer)
         {
-            printf("buffer is %s\n",buffer);
+           // printf("buffer is %s\n",buffer);
             write(file, buffer, strlen(buffer));
             free(buffer);
             buffer = get_next_line(fd[0]);
         }
         close(fd[0]);
-       printf("Hallo from parent process\n");
-
-    }    
+        // if (execve(argv[3], argv + 3, NULL) == -1)
+        //     perror("execve");
+       // fct(argv, file);
+        printf("Hallo from parent process\n");
+    } 
+    printf("test\n");
     return (0);
 }
