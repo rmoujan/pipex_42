@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
+/*   By: rmoujan <rmoujan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/03 11:32:48 by rmoujan          ###   ########.fr       */
+/*   Created: 2021/12/03 15:19:29 by rmoujan           #+#    #+#             */
+/*   Updated: 2021/12/10 20:15:45 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef  GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#define BUFFER_SIZE 1
+//# include <fcntl.h> 
+# include <stdlib.h> 
+# include <unistd.h>
 
-void checks_errors(int argc);
-void test_files(char *argv[]);
 char		*get_next_line(int fd);
 char		*ft_strjoin(char **s1, char **s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
