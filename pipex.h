@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/03 13:36:14 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/04 12:37:59 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 #include <stdlib.h>
 #include <string.h>
 #define BUFFER_SIZE 5
+
+typedef struct s_command t_cmd;
+struct s_command{
+    char **name;
+    int lines;
+};
 
 void checks_errors(int argc);
 void test_files(char *argv[]);
