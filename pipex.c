@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/04 12:40:18 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/04 16:06:15 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,76 @@ void test_files(char *argv[])
 }
 //calcul how many lines we have in args for the first exceve
 // ./pipex infile "ls -l" "wc -l" outfile
-void	allocate_frstexec(char **argv, t_cmd cmd1)
+void	cmd_parameters(char **argv, t_cmd *cmd1)
 {
-	cmd1.name = ft_split(argv[2], ' ');
-	cmd1.lines = 0;
-	while (cmd1.name[cmd1.lines])
-		cmd1.lines++;
+	cmd1->name = ft_split(argv[2], ' ');
+	cmd1->lines = 0;
+	while (cmd1->name[cmd1->lines])
+		cmd1->lines++;
 }
+
+void ft_exit()
+{
+	write(1, "ERROR\n", 6);
+	exit(1);
+}
+
+int	path_size(char **path)
+{
+	int	i;
+	int max;
+
+	i = 0;
+	max = 0;
+	while (path[i])
+	{
+		if (max < ft_strlen(path[i]))
+			max = ft_strlen(path[i]);
+		i++;	
+	}
+	return (max);
+}
+
+//creating the args for the first exceve():
+//I think you don't bash t7sbi lhadshi kaml 7e9ash you are already using split
+//st split deja kat clacule l each str
+void	allocating_space(char ***args, char **path, char **argv, t_cmd	cmd1)
+{
+	// int	i;
+	// int j;
+
+	// i = 1;
+	// j = 0;
+	//let the path ankhdem 3liha bu7dha !!!
+	//in this whill .. I'll work just on cmd and his parameters :
+	// while (cmd1.name[j])
+	// {
+	// 	args[i] = (char *) malloc(sizeof(char) * (ft_strlen(cmd1.name[i]) + 1));
+	// 	i++;
+	// 	j++;
+	// }
+	//still the file :
+	
+}
+//mashi b darora t recivi pointer as double pointer .. fash dert visualisation l9it
+// ghi be single pointer n9der nbdlo (do *file bash t accedi lvalue of pointer)
+void	file_into_str(char *argv, char *file)
+{
+	int		fd;
+	char	*str;
+
+	fd = open(argv, O_RDWR);
+
+	str = get_next_line(fd);
+	while (str)
+	{
+		*file = ft_strjoin(file, str);
+		free(str);
+		free(file);
+		str = get_next_line(fd);
+	}
+}
+
 
 int main(int argc, char *argv[], char *const envp[])
 {
@@ -60,7 +123,7 @@ int main(int argc, char *argv[], char *const envp[])
     int		i;
     int		flag;
 	int		size;
-    char	**tab;
+    char	**path;
 	char	*file;
 	t_cmd	cmd1;
 	char	**args1;
@@ -74,43 +137,60 @@ int main(int argc, char *argv[], char *const envp[])
     {
         if (ft_strncmp(envp[i], "PATH", 4) == 0)
         {
-            tab = ft_split(envp[i], ':');
-            tab[0] =ft_strtrim(tab[0], "PATH=");
+            path = ft_split(envp[i], ':');
+            path[0] =ft_strtrim(path[0], "PATH=");
             break;
         }
         i++;
     }
+	//putting the file1 into a string to send him to args(for excev fct):
+	file = (char *)malloc(sizeof(char) * 1);
+	file[0] = '\0';
+	file_into_str(argv[1], &file);
+	
     //fill the cmd1 with the path ,cmd and his parameters , and file1 :
 	//first of all must calcul how many args we have , for allocating the tab cmd1:
-	cmd1.name = allocate_frstexec(argv);
-	args1 = (char *) malloc(sizeof(char *) * (size + 1));
+	cmd_parameters(argv, &cmd1);
+	args1 = (char **) malloc(sizeof(char *) * (cmd1.lines + 3));
+	allocating_space(&args1, path, argv, cmd1);
+	creating_args();
+		
+
+
+
+
+
 	
-    id = fork();
-	i = 0;
-    if (id < 0)
-        perror("ERROR");
-    //child process :
-    else if (id == 0)
-    {
-        //should do here the first execeve function to execute the cmd1
-        //checking is the command exits in some of tha paths by using execeve :
-        while (tab[i])
-        {
-            if (execve(tab[i], args1, envp) == -1)
-                flag = 1;
-            i++;
-        }
-		//if the command does not exists will appear this msg : 
-		if (flag == 1)
-			perror("execve");
-    }
-    //parent process :
-    else
-    {
-        //will wait until the child process finish for bringing the data from child process!!
-        //should do here the second execeve function to execute the cmd2
-        wait(NULL);
-        printf("*****\n");
-    }
+	//starting process using fork and execve and pipe dup ..
+	// if (args1 == NULL)
+	// 	ft_exit(1);
+	
+    // id = fork();
+	// i = 0;
+    // if (id < 0)
+    //     perror("ERROR");
+    // //child process :
+    // else if (id == 0)
+    // {
+    //     //should do here the first execeve function to execute the cmd1
+    //     //checking is the command exits in some of tha paths by using execeve :
+    //     while (tab[i])
+    //     {
+    //         if (execve(tab[i], args1, envp) == -1)
+    //             flag = 1;
+    //         i++;
+    //     }
+	// 	//if the command does not exists will appear this msg : 
+	// 	if (flag == 1)
+	// 		perror("execve");
+    // }
+    // //parent process :
+    // else
+    // {
+    //     //will wait until the child process finish for bringing the data from child process!!
+    //     //should do here the second execeve function to execute the cmd2
+    //     wait(NULL);
+    //     printf("*****\n");
+    // }
     return (0);
 }

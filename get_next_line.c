@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:18:22 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/03 10:18:14 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/04 15:54:41 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ char	*ft_work(char **buffer, char **rest, int fd)
 		*(*buffer + rd) = '\0';
 		if (ft_checker(*buffer) > -1)
 		{
-			*rest = ft_strjoin(rest, buffer);
+			*rest = ft_strjjoin(rest, buffer);
 			break ;
 		}
 		else if (ft_checker(*buffer) == -2)
 			break ;
-		*rest = ft_strjoin(rest, buffer);
+		*rest = ft_strjjoin(rest, buffer);
 	}
 	ft_free(buffer);
 	return (ft_process(rest));

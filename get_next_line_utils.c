@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 19:04:30 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/03 10:18:08 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/04 15:57:04 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ char	*ft_copy(char const *s1, char const *s2, char *p)
 	return (p);
 }
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
+// size_t	ft_strlen(const char *str)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (str[i] != '\0')
+// 		i++;
+// 	return (i);
+// }
 
-char	*ft_strjoin(char **s1, char **s2)
+char	*ft_strjjoin(char **s1, char **s2)
 {
 	char	*p;
 

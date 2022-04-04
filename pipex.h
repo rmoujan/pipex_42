@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/04 12:37:59 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/04 15:53:37 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void fct(char **argv, int file);
 
 
 char		*get_next_line(int fd);
-char		*ft_strjoin(char **s1, char **s2);
+char		*ft_strjjoin(char **s1, char **s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 size_t		ft_strlen(const char *str);
 int			ft_checker(char *str);
