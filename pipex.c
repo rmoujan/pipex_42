@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/04 16:06:15 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/04 17:28:49 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,21 @@ void ft_exit()
 	exit(1);
 }
 
-int	path_size(char **path)
-{
-	int	i;
-	int max;
+// int	path_size(char **path)
+// {
+// 	int	i;
+// 	int max;
 
-	i = 0;
-	max = 0;
-	while (path[i])
-	{
-		if (max < ft_strlen(path[i]))
-			max = ft_strlen(path[i]);
-		i++;	
-	}
-	return (max);
-}
+// 	i = 0;
+// 	max = 0;
+// 	while (path[i])
+// 	{
+// 		if (max < ft_strlen(path[i]))
+// 			max = ft_strlen(path[i]);
+// 		i++;	
+// 	}
+// 	return (max);
+// }
 
 //creating the args for the first exceve():
 //I think you don't bash t7sbi lhadshi kaml 7e9ash you are already using split
@@ -99,7 +99,7 @@ void	allocating_space(char ***args, char **path, char **argv, t_cmd	cmd1)
 }
 //mashi b darora t recivi pointer as double pointer .. fash dert visualisation l9it
 // ghi be single pointer n9der nbdlo (do *file bash t accedi lvalue of pointer)
-void	file_into_str(char *argv, char *file)
+void	file_into_str(char *argv, char **file)
 {
 	int		fd;
 	char	*str;
@@ -109,13 +109,34 @@ void	file_into_str(char *argv, char *file)
 	str = get_next_line(fd);
 	while (str)
 	{
-		*file = ft_strjoin(file, str);
-		free(str);
-		free(file);
+		*file = ft_strjoin(*file, str);
+		//free(str);
+		//free(file);
 		str = get_next_line(fd);
 	}
 }
 
+void creating_args(char ***args, char *file, t_cmd cmd1, int size)
+{
+	int i;
+	int j;
+
+	i = 1;
+	j = 0;
+	*args[0] = "/bin/src";
+	while (cmd1.name[j])
+	{
+		*args[i] = cmd1.name[j];
+		i++;
+		j++;
+	}
+	while (i < size)
+	{
+		*args[i] = file;
+		i++;
+	}
+	*args[i] = NULL;
+}
 
 int main(int argc, char *argv[], char *const envp[])
 {
@@ -128,38 +149,54 @@ int main(int argc, char *argv[], char *const envp[])
 	t_cmd	cmd1;
 	char	**args1;
 	
-    checks_errors(argc);
-    test_files(argv);
+   // checks_errors(argc);
+   // test_files(argv);
     //bringing the var PATH from envp :
     i = 0;
     flag = 0;
+	//this part is worked well
     while (envp[i])
     {
         if (ft_strncmp(envp[i], "PATH", 4) == 0)
         {
             path = ft_split(envp[i], ':');
-            path[0] =ft_strtrim(path[0], "PATH=");
+            path[0] = ft_strtrim(path[0], "PATH=");
             break;
         }
         i++;
     }
+	
+	// printf("Output envp |||\n");
+	// int j = 0;
+	// while (path[j])
+	// {
+	// 	printf("path[%d] == %s\n", j, path[j]);
+	// 	j++;
+	// }
+	
 	//putting the file1 into a string to send him to args(for excev fct):
+	//this part is worked well
 	file = (char *)malloc(sizeof(char) * 1);
 	file[0] = '\0';
 	file_into_str(argv[1], &file);
+	//printf("file1 : \n%s\n", file);
 	
-    //fill the cmd1 with the path ,cmd and his parameters , and file1 :
-	//first of all must calcul how many args we have , for allocating the tab cmd1:
+    // //fill the cmd1 with the path ,cmd and his parameters , and file1 :
+	// //first of all must calcul how many args we have , for allocating the tab cmd1:
 	cmd_parameters(argv, &cmd1);
-	args1 = (char **) malloc(sizeof(char *) * (cmd1.lines + 3));
-	allocating_space(&args1, path, argv, cmd1);
-	creating_args();
-		
-
-
-
-
-
+	size = cmd1.lines + 3;
+	
+	args1 = (char **) malloc(sizeof(char *) * (size));
+	//allocating_space(&args1, path, argv, cmd1);
+	//hena fash kay segfaulti 7it dakshi lfog kamel khedam 
+	creating_args(&args1, file, cmd1, size);
+	// printf("******* output the args *******\n");
+	// 	int j = 0;
+	// 	while (args1[j])
+	// 	{
+	// 		printf("args[%d] == %s\n", j, args1[j]);
+	// 		j++;
+	// 	}
 	
 	//starting process using fork and execve and pipe dup ..
 	// if (args1 == NULL)
