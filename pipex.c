@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/05 11:44:02 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/05 16:02:55 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void test_files(char *argv[])
     // test2 = access(argv[1], R_OK | W_OK | X_OK);
     // printf("tes2 == %d\n", test2);
 }
+
 //calcul how many lines we have in args for the first exceve
 // ./pipex infile "ls -l" "wc -l" outfile
 void	cmd_parameters(char **argv, t_cmd *cmd1)
@@ -60,49 +61,7 @@ void ft_exit()
 	exit(1);
 }
 
-
-//creating the args for the first exceve():
-//I think you don't bash t7sbi lhadshi kaml 7e9ash you are already using split
-//st split deja kat clacule l each str
-// void	allocating_space(char ***args, char **path, char **argv, t_cmd	cmd1)
-// {
-// 	// int	i;
-// 	// int j;
-
-// 	// i = 1;
-// 	// j = 0;
-// 	//let the path ankhdem 3liha bu7dha !!!
-// 	//in this whill .. I'll work just on cmd and his parameters :
-// 	// while (cmd1.name[j])
-// 	// {
-// 	// 	args[i] = (char *) malloc(sizeof(char) * (ft_strlen(cmd1.name[i]) + 1));
-// 	// 	i++;
-// 	// 	j++;
-// 	// }
-// 	//still the file :
-	
-// }
-//mashi b darora t recivi pointer as double pointer .. fash dert visualisation l9it
-// ghi be single pointer n9der nbdlo (do *file bash t accedi lvalue of pointer)
-int	file_into_str(char *argv)
-{
-	int		fd;
-	char	*str;
-
-	fd = open(argv, O_RDWR);
-
-	str = get_next_line(fd);
-	while (str)
-	{
-		//*file = ft_strjoin(*file, str);
-		//free(str);
-		//free(file);
-		printf("%s", str);
-		str = get_next_line(fd);
-	}
-	return (fd);
-}
-//must cheak it again hiya li fiha lmoshkiiiil !!!!!
+//fill the args with the cmd and her parameters !!!
 void creating_args(char ***args, t_cmd cmd1, int size)
 {
 	int i;
@@ -110,16 +69,12 @@ void creating_args(char ***args, t_cmd cmd1, int size)
 
 	i = 1;
 	j = 0;
-	//*tab)[i]
-//	(*args)[0] = "/bin/src";//just an example
 	while (cmd1.name[j])
 	{
 		(*args)[i] = cmd1.name[j];
 		i++;
 		j++;
 	}
-	// (*args)[i] = file;
-	// i++;
 	(*args)[i] = NULL;
 }
 
@@ -131,14 +86,29 @@ char **concat_pathwithcmd(char **path, t_cmd cmd1)
 	i = 0;
 	while (path[i])
 	{
-	path[i] = ft_strjoin(path[i], "/\0");
-	path[i] = ft_strjoin(path[i], cmd1.name[0]);
-	//path[i] = ft_strjoin(path[i], "/\0");
-	i++;
+		path[i] = ft_strjoin(path[i], "/\0");
+		path[i] = ft_strjoin(path[i], cmd1.name[0]);
+		i++;
 	}
 	return (path);
 }
 
+void	getting_paths(char **envp, t_arg *prg)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+    {
+        if (ft_strncmp(envp[i], "PATH", 4) == 0)
+        {
+            prg->path = ft_split(envp[i], ':');
+            prg->path[0] = ft_strtrim(prg->path[0], "PATH=");
+            break;
+        }
+        i++;
+    }
+}
 int main(int argc, char *argv[], char *const envp[])
 {
     int		id;
@@ -146,11 +116,13 @@ int main(int argc, char *argv[], char *const envp[])
     int		flag;
 	int		size;
     char	**path;
-	//char	*file;
 	t_cmd	cmd1;
 	char	**args1;
+	int		f[2];
+	t_arg	prg1;
+	t_arg	prg2;
 	
-   // checks_errors(argc);
+   //checks_errors(argc);
    // test_files(argv);
     //bringing the var PATH from envp :
     i = 0;
@@ -166,46 +138,24 @@ int main(int argc, char *argv[], char *const envp[])
         }
         i++;
     }
+	//later :: 
+	//prg1 = malloc(sizeof(t_arg));
+	//getting_paths(envp, &prg1);
 	
-	// printf("Output envp |||\n");
-	// int j = 0;
-	// while (path[j])
-	// {
-	// 	printf("path[%d] == %s\n", j, path[j]);
-	// 	j++;
-	// }
-	
-	//putting the file1 into a string to send him to args(for excev fct):
-	//this part is worked well
-	// file = (char *)malloc(sizeof(char) * 1);
-	// file[0] = '\0';
-	// file_into_str(argv[1], &file);
-	//printf("file1 : \n%s\n", file);
-	
-    // //fill the cmd1 with the path ,cmd and his parameters , and file1 :
+    // //fill the cmd1 with the path ,cmd and his parameters :
 	// //first of all must calcul how many args we have , for allocating the tab cmd1:
 	cmd_parameters(argv, &cmd1);
 	size = cmd1.lines + 2;
-	//printf("size is %d\n", size);
-	//printf("lines of cmd1 is %d\n", cmd1.lines);
 	args1 = (char **) malloc(sizeof(char *) * (size));
 	if (args1 == NULL)
 		ft_exit();
-	// //allocating_space(&args1, path, argv, cmd1);
-	// //hena fash kay segfaulti 7it dakshi lfog kamel khedam  
 	creating_args(&args1, cmd1, size);
 	path = concat_pathwithcmd(path, cmd1);
-	// printf("******* output the paths *******\n");
-	// 	int j = 0;
-	// 	while (path[j])
-	// 	{
-	// 		printf("path[%d] == %s\n\n", j, path[j]);
-	// 		j++;
-	// 	}
-	
-	//starting process using fork and execve and pipe dup ..
-	//int fd = open(argv[1], O_RDWR);
-	int fd = file_into_str(argv[1]);
+		
+	int fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		ft_exit();
+	//int fd = file_into_str(argv[1]);
     id = fork();
 	i = 0;
     if (id < 0)
@@ -215,14 +165,14 @@ int main(int argc, char *argv[], char *const envp[])
     {
         //should do here the first execeve function to execute the cmd1
         //checking is the command exits in some of the paths by using execeve :
-		if (dup2(fd, 1) == -1)
-            perror("dup2");
+		if (dup2(fd, 0) == -1)
+			perror("dup2");
+		close(fd);
         while (path[i])
         {
 			flag = 0;
 			args1[0] = path[i];
-			//printf("args[0] == %s\n", args1[0]);
-            if (execve(path[i], args1, NULL) == -1)
+            if (execve(path[i], args1 + 1, NULL) == -1)
                 flag = 1;
             i++;
         }
@@ -233,13 +183,6 @@ int main(int argc, char *argv[], char *const envp[])
 			perror("execve");
 			printf("insid if when execve failed !!!!! \n");
 		}
-	// printf("******* output the args *******\n");
-	// 	int j = 0;
-	// 	while (args1[j])
-	// 	{
-	// 		printf("args[%d] == %s\n\n", j, args1[j]);
-	// 		j++;
-	// 	}
     }
     //parent process :
     else

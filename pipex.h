@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/04 15:53:37 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/05 16:03:35 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ typedef struct s_command t_cmd;
 struct s_command{
     char **name;
     int lines;
+};
+
+typedef struct s_argument t_arg;
+struct s_argument{
+    char **args;
+    char **path;
+    t_cmd cmd;
 };
 
 void checks_errors(int argc);
