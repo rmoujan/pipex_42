@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   backup_pipex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/05 11:00:15 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/05 10:03:36 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,43 @@ void ft_exit()
 	exit(1);
 }
 
+// int	path_size(char **path)
+// {
+// 	int	i;
+// 	int max;
+
+// 	i = 0;
+// 	max = 0;
+// 	while (path[i])
+// 	{
+// 		if (max < ft_strlen(path[i]))
+// 			max = ft_strlen(path[i]);
+// 		i++;	
+// 	}
+// 	return (max);
+// }
 
 //creating the args for the first exceve():
 //I think you don't bash t7sbi lhadshi kaml 7e9ash you are already using split
 //st split deja kat clacule l each str
-// void	allocating_space(char ***args, char **path, char **argv, t_cmd	cmd1)
-// {
-// 	// int	i;
-// 	// int j;
+void	allocating_space(char ***args, char **path, char **argv, t_cmd	cmd1)
+{
+	// int	i;
+	// int j;
 
-// 	// i = 1;
-// 	// j = 0;
-// 	//let the path ankhdem 3liha bu7dha !!!
-// 	//in this whill .. I'll work just on cmd and his parameters :
-// 	// while (cmd1.name[j])
-// 	// {
-// 	// 	args[i] = (char *) malloc(sizeof(char) * (ft_strlen(cmd1.name[i]) + 1));
-// 	// 	i++;
-// 	// 	j++;
-// 	// }
-// 	//still the file :
+	// i = 1;
+	// j = 0;
+	//let the path ankhdem 3liha bu7dha !!!
+	//in this whill .. I'll work just on cmd and his parameters :
+	// while (cmd1.name[j])
+	// {
+	// 	args[i] = (char *) malloc(sizeof(char) * (ft_strlen(cmd1.name[i]) + 1));
+	// 	i++;
+	// 	j++;
+	// }
+	//still the file :
 	
-// }
+}
 //mashi b darora t recivi pointer as double pointer .. fash dert visualisation l9it
 // ghi be single pointer n9der nbdlo (do *file bash t accedi lvalue of pointer)
 void	file_into_str(char *argv, char **file)
@@ -119,22 +134,6 @@ void creating_args(char ***args, char *file, t_cmd cmd1, int size)
 	(*args)[i] = file;
 	i++;
 	(*args)[i] = NULL;
-}
-
-//should concatene each path with  "/commande" 
-char **concat_pathwithcmd(char **path, t_cmd cmd1)
-{
-	int i;
-
-	i = 0;
-	while (path[i])
-	{
-	path[i] = ft_strjoin(path[i], "/\0");
-	path[i] = ft_strjoin(path[i], cmd1.name[0]);
-	//path[i] = ft_strjoin(path[i], "/\0");
-	i++;
-	}
-	return (path);
 }
 
 int main(int argc, char *argv[], char *const envp[])
@@ -184,66 +183,52 @@ int main(int argc, char *argv[], char *const envp[])
 	// //first of all must calcul how many args we have , for allocating the tab cmd1:
 	cmd_parameters(argv, &cmd1);
 	size = cmd1.lines + 3;
-	//printf("size is %d\n", size);
+	printf("size is %d\n", size);
 	//printf("lines of cmd1 is %d\n", cmd1.lines);
 	args1 = (char **) malloc(sizeof(char *) * (size));
 	if (args1 == NULL)
-		ft_exit();
+		printf("NULL\n");
 	// //allocating_space(&args1, path, argv, cmd1);
 	// //hena fash kay segfaulti 7it dakshi lfog kamel khedam  
 	creating_args(&args1, file, cmd1, size);
-	path = concat_pathwithcmd(path, cmd1);
-	// printf("******* output the paths *******\n");
-	// 	int j = 0;
-	// 	while (path[j])
-	// 	{
-	// 		printf("path[%d] == %s\n\n", j, path[j]);
-	// 		j++;
-	// 	}
+	printf("******* output the args *******\n");
+		int j = 0;
+		while (args1[j])
+		{
+			printf("args[%d] == %s\n\n", j, args1[j]);
+			j++;
+		}
 	
 	//starting process using fork and execve and pipe dup ..
+	// if (args1 == NULL)
+	// 	ft_exit(1);
 	
-    id = fork();
-	i = 0;
-    if (id < 0)
-        perror("ERROR");
-    //child process :
-    else if (id == 0)
-    {
-        //should do here the first execeve function to execute the cmd1
-        //checking is the command exits in some of the paths by using execeve :
-        while (path[i])
-        {
-			flag = 0;
-			args1[0] = path[i];
-			//printf("args[0] == %s\n", args1[0]);
-            if (execve(path[i], args1, NULL) == -1)
-                flag = 1;
-            i++;
-        }
-		//if the command does not exists will appear this msg : 
-		if (flag == 1)
-		{
-			printf("==============");
-			perror("execve");
-			printf("insid if when execve failed !!!!! \n");
-		}
-	// printf("******* output the args *******\n");
-	// 	int j = 0;
-	// 	while (args1[j])
-	// 	{
-	// 		printf("args[%d] == %s\n\n", j, args1[j]);
-	// 		j++;
-	// 	}
-    }
-    //parent process :
-    else
-    {
-        //will wait until the child process finish for bringing the data from child process!!
-        //should do here the second execeve function to execute the cmd2
-        wait(NULL);
-        printf("****** PARENT PROCESS ******\n");
-    }
-	
+    // id = fork();
+	// i = 0;
+    // if (id < 0)
+    //     perror("ERROR");
+    // //child process :
+    // else if (id == 0)
+    // {
+    //     //should do here the first execeve function to execute the cmd1
+    //     //checking is the command exits in some of tha paths by using execeve :
+    //     while (tab[i])
+    //     {
+    //         if (execve(tab[i], args1, envp) == -1)
+    //             flag = 1;
+    //         i++;
+    //     }
+	// 	//if the command does not exists will appear this msg : 
+	// 	if (flag == 1)
+	// 		perror("execve");
+    // }
+    // //parent process :
+    // else
+    // {
+    //     //will wait until the child process finish for bringing the data from child process!!
+    //     //should do here the second execeve function to execute the cmd2
+    //     wait(NULL);
+    //     printf("*****\n");
+    // }
     return (0);
 }
