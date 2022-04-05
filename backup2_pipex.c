@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   backup2_pipex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/05 11:44:02 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/05 12:19:47 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void ft_exit()
 // }
 //mashi b darora t recivi pointer as double pointer .. fash dert visualisation l9it
 // ghi be single pointer n9der nbdlo (do *file bash t accedi lvalue of pointer)
-int	file_into_str(char *argv)
+void	file_into_str(char *argv, char **file)
 {
 	int		fd;
 	char	*str;
@@ -94,16 +94,14 @@ int	file_into_str(char *argv)
 	str = get_next_line(fd);
 	while (str)
 	{
-		//*file = ft_strjoin(*file, str);
+		*file = ft_strjoin(*file, str);
 		//free(str);
 		//free(file);
-		printf("%s", str);
 		str = get_next_line(fd);
 	}
-	return (fd);
 }
 //must cheak it again hiya li fiha lmoshkiiiil !!!!!
-void creating_args(char ***args, t_cmd cmd1, int size)
+void creating_args(char ***args, char *file, t_cmd cmd1, int size)
 {
 	int i;
 	int j;
@@ -118,8 +116,8 @@ void creating_args(char ***args, t_cmd cmd1, int size)
 		i++;
 		j++;
 	}
-	// (*args)[i] = file;
-	// i++;
+	(*args)[i] = file;
+	i++;
 	(*args)[i] = NULL;
 }
 
@@ -146,7 +144,7 @@ int main(int argc, char *argv[], char *const envp[])
     int		flag;
 	int		size;
     char	**path;
-	//char	*file;
+	char	*file;
 	t_cmd	cmd1;
 	char	**args1;
 	
@@ -177,15 +175,15 @@ int main(int argc, char *argv[], char *const envp[])
 	
 	//putting the file1 into a string to send him to args(for excev fct):
 	//this part is worked well
-	// file = (char *)malloc(sizeof(char) * 1);
-	// file[0] = '\0';
-	// file_into_str(argv[1], &file);
+	file = (char *)malloc(sizeof(char) * 1);
+	file[0] = '\0';
+	file_into_str(argv[1], &file);
 	//printf("file1 : \n%s\n", file);
 	
     // //fill the cmd1 with the path ,cmd and his parameters , and file1 :
 	// //first of all must calcul how many args we have , for allocating the tab cmd1:
 	cmd_parameters(argv, &cmd1);
-	size = cmd1.lines + 2;
+	size = cmd1.lines + 3;
 	//printf("size is %d\n", size);
 	//printf("lines of cmd1 is %d\n", cmd1.lines);
 	args1 = (char **) malloc(sizeof(char *) * (size));
@@ -193,7 +191,7 @@ int main(int argc, char *argv[], char *const envp[])
 		ft_exit();
 	// //allocating_space(&args1, path, argv, cmd1);
 	// //hena fash kay segfaulti 7it dakshi lfog kamel khedam  
-	creating_args(&args1, cmd1, size);
+	creating_args(&args1, file, cmd1, size);
 	path = concat_pathwithcmd(path, cmd1);
 	// printf("******* output the paths *******\n");
 	// 	int j = 0;
@@ -204,8 +202,7 @@ int main(int argc, char *argv[], char *const envp[])
 	// 	}
 	
 	//starting process using fork and execve and pipe dup ..
-	//int fd = open(argv[1], O_RDWR);
-	int fd = file_into_str(argv[1]);
+	
     id = fork();
 	i = 0;
     if (id < 0)
@@ -215,8 +212,6 @@ int main(int argc, char *argv[], char *const envp[])
     {
         //should do here the first execeve function to execute the cmd1
         //checking is the command exits in some of the paths by using execeve :
-		if (dup2(fd, 1) == -1)
-            perror("dup2");
         while (path[i])
         {
 			flag = 0;
