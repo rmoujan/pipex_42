@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/05 16:02:55 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/05 16:46:10 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void ft_exit()
 }
 
 //fill the args with the cmd and her parameters !!!
-void creating_args(char ***args, t_cmd cmd1, int size)
+void creating_args(char ***args, t_cmd cmd1)
 {
 	int i;
 	int j;
@@ -93,42 +93,43 @@ char **concat_pathwithcmd(char **path, t_cmd cmd1)
 	return (path);
 }
 
-void	getting_paths(char **envp, t_arg *prg)
-{
-	int	i;
+// void	getting_paths(char **envp, t_arg *prg)
+// {
+// 	int	i;
 
-	i = 0;
-	while (envp[i])
-    {
-        if (ft_strncmp(envp[i], "PATH", 4) == 0)
-        {
-            prg->path = ft_split(envp[i], ':');
-            prg->path[0] = ft_strtrim(prg->path[0], "PATH=");
-            break;
-        }
-        i++;
-    }
-}
+// 	i = 0;
+// 	while (envp[i])
+//     {
+//         if (ft_strncmp(envp[i], "PATH", 4) == 0)
+//         {
+//             prg->path = ft_split(envp[i], ':');
+//             prg->path[0] = ft_strtrim(prg->path[0], "PATH=");
+//             break;
+//         }
+//         i++;
+//     }
+// }
+
 int main(int argc, char *argv[], char *const envp[])
 {
     int		id;
     int		i;
     int		flag;
 	int		size;
-    char	**path;
+    char	**path = NULL;
 	t_cmd	cmd1;
 	char	**args1;
-	int		f[2];
-	t_arg	prg1;
-	t_arg	prg2;
+	//int		f[2];
+	//t_arg	prg1;
+	//t_arg	prg2;
 	
-   //checks_errors(argc);
-   // test_files(argv);
+   checks_errors(argc);
+    test_files(argv);
     //bringing the var PATH from envp :
     i = 0;
     flag = 0;
 	//this part is worked well
-    while (envp[i])
+    while (envp[i] != NULL)
     {
         if (ft_strncmp(envp[i], "PATH", 4) == 0)
         {
@@ -149,7 +150,7 @@ int main(int argc, char *argv[], char *const envp[])
 	args1 = (char **) malloc(sizeof(char *) * (size));
 	if (args1 == NULL)
 		ft_exit();
-	creating_args(&args1, cmd1, size);
+	creating_args(&args1, cmd1);
 	path = concat_pathwithcmd(path, cmd1);
 		
 	int fd = open(argv[1], O_RDONLY);
