@@ -11,10 +11,10 @@ libobj = ./libft/*.o
 all : $(NAME) 
 
 $(NAME):${OBJ}
-	make -C libft
+	@make -C libft
 	$(CC) $(OBJ) $(lib) -o $(NAME)
 %.o : %.c
-	${CC} -c ${CFLAGS} $< -o $@
+	@${CC} -c ${CFLAGS} $< -o $@
 
 clean:
 	$(RM) $(OBJ) $(libobj)
