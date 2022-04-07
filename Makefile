@@ -1,4 +1,3 @@
-# include libft/Makefile
 NAME=pipex
 CC=gcc
 CFLAGS= -Wall -Wextra -Werror
@@ -6,22 +5,22 @@ RM = rm -f
 SRC=pipex.c
 
 OBJ = $(subst .c,.o,$(SRC))
-
-sub-make:
-	make -C libft
+lib = ./libft/libft.a
+libobj = ./libft/*.o
 
 all : $(NAME) 
 
-$(NAME):${OBJ} libft/libft.a
-	$(CC) $(OBJ) -o $(NAME)
+$(NAME):${OBJ}
+	make -C libft
+	$(CC) $(OBJ) $(lib) -o $(NAME)
 %.o : %.c
 	${CC} -c ${CFLAGS} $< -o $@
 
 clean:
-	$(RM) $(OBJ) libft/*.o
+	$(RM) $(OBJ) $(libobj)
 
 fclean:clean
-	$(RM) $(NAME) 
+	$(RM) $(NAME) $(lib)
 	
 re:fclean all
 

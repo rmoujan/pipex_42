@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/07 12:20:24 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/07 14:59:07 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ int main(int argc, char *argv[], char *const envp[])
 	t_arg	*prg1;
 	t_arg	*prg2;
 	
-    //checks_errors(argc);
-    //test_files(argv);
+    checks_errors(argc);
+    test_files(argv);
     i = 0;
     flag = 0;
 	prg1 =(t_arg *) malloc(sizeof(t_arg));
@@ -143,7 +143,7 @@ int main(int argc, char *argv[], char *const envp[])
 	concat_pathwithcmd(prg2);
         
 	int fd = open(argv[1], O_RDONLY);
-    int fd2 = open(argv[4], O_RDWR | O_APPEND);
+    int fd2 = open(argv[4], O_RDWR);
 	if (fd == -1 || fd2 == -1)
 		ft_exit();
     if (pipe(pi) < 0)
@@ -193,14 +193,11 @@ int main(int argc, char *argv[], char *const envp[])
         //redirect the THE pipe to input for the cmd2
 		if (dup2(pi[0], 0) == -1)
         {
-           // printf("error");
-            	perror("dup2");
-                
-            
+           //printf("error");
+            perror("dup2");   
         }
-		
-		close(pi[0]);
-        close(pi[1]);
+		//close(pi[0]);
+        //close(pi[1]);
         //rdirect the output to file
         if (dup2(fd2, 1) == -1)
         {
@@ -208,10 +205,13 @@ int main(int argc, char *argv[], char *const envp[])
             perror("dup2");
         }
         close(fd2);
+       // printf("outside while \n");
         while (prg2->path[i])
         {
 			flag = 0;
 			prg2->args[0] = prg2->path[i];
+            //printf("inside while\n");
+           // printf("prg2->args[0] == %s\n", prg2->args[0]);
             if (execve(prg2->path[i], prg2->args + 1, NULL) == -1)
                 flag = 1;
             i++;
