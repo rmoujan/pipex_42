@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/07 12:10:37 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/07 12:20:24 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ int main(int argc, char *argv[], char *const envp[])
 	concat_pathwithcmd(prg2);
         
 	int fd = open(argv[1], O_RDONLY);
-    int fd2 = open(argv[4], O_RDWR);
-	if (fd == -1)
+    int fd2 = open(argv[4], O_RDWR | O_APPEND);
+	if (fd == -1 || fd2 == -1)
 		ft_exit();
     if (pipe(pi) < 0)
         exit(1);
@@ -182,24 +182,32 @@ int main(int argc, char *argv[], char *const envp[])
 		}
     }
     //parent process :
+    //pi[0]//read
+    //pi[1]//write
     else
     {
         //will wait until the child process finish for bringing the data from child process!!
         //should do here the second execeve function to execute the cmd2
         wait(NULL);
         close(pi[1]);
-        //redirect the THE pipe to input
+        //redirect the THE pipe to input for the cmd2
 		if (dup2(pi[0], 0) == -1)
-			perror("dup2");
+        {
+           // printf("error");
+            	perror("dup2");
+                
+            
+        }
+		
 		close(pi[0]);
         close(pi[1]);
         //rdirect the output to file
         if (dup2(fd2, 1) == -1)
         {
-            printf("error");
+           //printf("error");
             perror("dup2");
         }
-        //close(fd2);
+        close(fd2);
         while (prg2->path[i])
         {
 			flag = 0;
