@@ -1,36 +1,94 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   backup3_pipex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/07 17:45:22 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/07 16:58:27 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
 
-void	ft_exit(void)
+void checks_errors(int argc)
+{
+    if (argc != 5)
+    {
+        write(1, "ERROR MANAGEMENT \n", 18);
+        exit(1);
+    }
+}        
+
+void test_files(char *argv[])
+{
+    if (access(argv[1], F_OK) == -1 || access(argv[1], R_OK | W_OK | X_OK) == -1)
+    {
+        write(1, "ERROR OCCURED WHEN CHECKING FILES \n", 35);
+        exit(1);
+    }
+     if (access(argv[4], F_OK) == -1 || access(argv[4], R_OK | W_OK | X_OK) == -1)
+    {
+        write(1, "ERROR OCCURED WHEN CHECKING FILES \n", 35);
+        exit(1);
+    }
+    // else
+    // {
+    //     printf("there is no error \n");
+    // }
+    // int test, test2;
+    // test = access(argv[1], F_OK);
+    // printf("test == %d\n", test);
+    // test2 = access(argv[1], R_OK | W_OK | X_OK);
+    // printf("tes2 == %d\n", test2);
+}
+
+//bring the cmd and his parameters  :
+//must calcul the numbers of cmd and his parameters (to allocate the tab cmd):
+void	cmd_parameters(char *argv, t_arg *prg)
+{
+	prg->cmd.name = ft_split(argv, ' ');
+	prg->cmd.lines = 0;
+	while (prg->cmd.name[prg->cmd.lines])
+		prg->cmd.lines++;
+}
+
+void ft_exit()
 {
 	write(1, "ERROR\n", 6);
 	exit(1);
 }
 
-//bring the cmd and her parameters from argv and 
-//concatenate each path with "/commande" 
-void	concaten_pathscmd(t_arg *prg, char *argv)
+//fill the args with the cmd and her parameters !!!
+void creating_args(t_arg *prg)
 {
-	int	i;
+	int i;
+	int j;
+
+	i = 1;
+	j = 0;
+    //prg->args[0] = "/usr/bin";
+	while (prg->cmd.name[j])
+	{
+        prg->args[i] = prg->cmd.name[j];
+		i++;
+		j++;
+	}
+    prg->args[i] = NULL;
+}
+
+//should concatene each path with  "/commande" 
+void concat_pathwithcmd(t_arg *prg)
+{
+	int i;
 
 	i = 0;
-	prg->cmd = ft_split(argv, ' ');
 	while (prg->path[i])
 	{
 		prg->path[i] = ft_strjoin(prg->path[i], "/\0");
-		prg->path[i] = ft_strjoin(prg->path[i], prg->cmd[0]);
+		prg->path[i] = ft_strjoin(prg->path[i], prg->cmd.name[0]);
 		i++;
 	}
 }
@@ -41,15 +99,15 @@ void	getting_paths(char *const envp[], t_arg *prg)
 
 	i = 0;
 	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH", 4) == 0)
-		{
-			prg->path = ft_split(envp[i], ':');
-			prg->path[0] = ft_strtrim(prg->path[0], "PATH=");
-			break ;
-		}
-		i++;
-	}
+    {
+        if (ft_strncmp(envp[i], "PATH", 4) == 0)
+        {
+            prg->path = ft_split(envp[i], ':');
+            prg->path[0] = ft_strtrim(prg->path[0], "PATH=");
+            break;
+        }
+        i++;
+    }
 }
 
 int main(int argc, char *argv[], char *const envp[])
@@ -67,23 +125,30 @@ int main(int argc, char *argv[], char *const envp[])
     flag = 0;
     checks_errors(argc);
     test_files(argv);
-	//preparing first cmd
 	prg1 =(t_arg *) malloc(sizeof(t_arg));
-	getting_paths(envp, prg1);
-	concaten_pathscmd(prg1, argv[2]);
-    //preparing second cmd :
+	getting_paths(envp, prg1);//WORKED
+	cmd_parameters(argv[2], prg1);
+	prg1->args = (char **) malloc(sizeof(char *) * (prg1->cmd.lines + 2));
+	if (prg1->args == NULL)
+		ft_exit();
+	creating_args(prg1);
+	concat_pathwithcmd(prg1);
+    //preparing the 2 cmd :
     prg2 =(t_arg *) malloc(sizeof(t_arg));
 	getting_paths(envp, prg2);//WORKED
-	concaten_pathscmd(prg2, argv[3]);
+	cmd_parameters(argv[3], prg2);
+	prg2->args = (char **) malloc(sizeof(char *) * (prg2->cmd.lines + 2));
+	if (prg2->args == NULL)
+		ft_exit();
+	creating_args(prg2);
+	concat_pathwithcmd(prg2);
         
 	fd1 = open(argv[1], O_RDONLY);
     fd2 = open(argv[4], O_RDWR);
 	if (fd1 == -1 || fd2 == -1)
 		ft_exit();
-	
     if (pipe(pi) < 0)
         exit(1);
-	
     id = fork();
 	i = 0;
     if (id < 0)
@@ -105,8 +170,8 @@ int main(int argc, char *argv[], char *const envp[])
         while (prg1->path[i])
         {
 			flag = 0;
-			//prg1->args[0] = prg1->path[i];
-            if (execve(prg1->path[i], prg1->cmd, NULL) == -1)
+			prg1->args[0] = prg1->path[i];
+            if (execve(prg1->path[i], prg1->args + 1, NULL) == -1)
                 flag = 1;
             i++;
         }
@@ -140,10 +205,14 @@ int main(int argc, char *argv[], char *const envp[])
             perror("dup2");
         }
         close(fd2);
+       // printf("outside while \n");
         while (prg2->path[i])
         {
 			flag = 0;
-            if (execve(prg2->path[i], prg2->cmd, NULL) == -1)
+			prg2->args[0] = prg2->path[i];
+            printf("inside while\n");
+            printf("prg2->args[0] == %s\n", prg2->args[0]);
+            if (execve(prg2->path[i], prg2->args + 1, NULL) == -1)
                 flag = 1;
          i++;
         }
