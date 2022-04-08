@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/08 10:27:53 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/08 15:32:40 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ struct s_argument{
 
 typedef struct s_fds	t_fds;
 struct s_fds{
-	int	p[2];
-	int	fd1;
-	int	fd2;
+    int		num;
+    int		fd1;
+    int		fd2;
+	int		pi[2];
 };
 
 void	checks_errors(int argc);
@@ -38,6 +39,7 @@ void	test_files(char *argv[]);
 void	fct(char **argv, int file);
 void	checks_errors(int argc);
 void	test_files(char *argv[]);
+void	check_exist_cmd(t_arg *prg1, t_arg *prg2);
 char	*ft_strjjoin(char **s1, char **s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *str);

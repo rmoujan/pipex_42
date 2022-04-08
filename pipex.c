@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/08 13:33:02 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/08 16:57:58 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,13 @@ void	getting_paths(char *const envp[], t_arg *prg)
 
 int main(int argc, char *argv[], char *const envp[])
 {
-    int		id;
-    int		fd1;
-    int		fd2;
-	int		pi[2];
+    t_fds   id;
 	t_arg	*prg1;
 	t_arg	*prg2;
 	
     checks_errors(argc);
     test_files(argv);
-	//preparing first cmd
+	//preparing first cmd :
 	prg1 =(t_arg *) malloc(sizeof(t_arg));
 	getting_paths(envp, prg1);
 	concaten_pathscmd(prg1, argv[2]);
@@ -74,75 +71,85 @@ int main(int argc, char *argv[], char *const envp[])
     check_exist_cmd(prg1, prg2); //just to minimize the code !!!
     //check_exist_cmd(prg2);
 	
-	fd1 = open(argv[1], O_RDONLY);
-    fd2 = open(argv[4], O_RDWR);
-	if (fd1 == -1 || fd2 == -1)
+	id.fd1 = open(argv[1], O_RDONLY);
+    id.fd2 = open(argv[4], O_RDWR);
+    
+	if (id.fd1 == -1 || id.fd2 == -1)
 		ft_exit();
-	
-    if (pipe(pi) < 0)
+    if (pipe(id.pi) < 0)
         ft_exit();
-	
-    id = fork();
-    if (id < 0)
+    id.num = fork();
+    if (id.num < 0)
     {
         perror("fork");
         exit(1);
     }
     //child process :
-    else if (id == 0)
+    else if (id.num == 0)
     {
-        //redirect the input to file
-		if (dup2(fd1, 0) == -1)
+        //redirect the input to file .. that makes execve read from the file for execute the cmd
+        //donk ay haja te7t had cmd raah aywli yakhud input from file(fd1)
+		if (dup2(id.fd1, 0) == -1)
         {
             perror("dup2");
             exit(1);
         }
-		close(fd1);
+		close(id.fd1);
         //for the pipe
-        close(pi[0]);
-        if (dup2(pi[1], 1) == -1)
+        close(id.pi[0]);
+        //result li atjini mn exceve ankhzenha f pi[1]
+        if (dup2(id.pi[1], 1) == -1)
         {
             perror("dup2");
             exit(1);
         }
-        close(pi[1]);
+        close(id.pi[1]);
         //should do here the first execeve function to execute the cmd1
-        if (execve(prg1->path[0], prg1->cmd, NULL) == -1)
+        if (execve(prg1->path[0], prg1->cmd, envp) == -1)
 			perror("execve");
     }//END CHILD PROCESS
-    
-    //parent process :
-    //pi[0]//read
-    //pi[1]//write
     else
     {
         //will wait until the child process finish for bringing the data from child process!!
         //should do here the second execeve function to execute the cmd2
         wait(NULL);
-        close(pi[1]);
-        //redirect the pipe to input for the cmd2
-		if (dup2(pi[0], 0) == -1)
+        id.num = fork();
+        if (id.num < 0)
         {
-            perror("dup2");
+            perror("fork");
             exit(1);
         }
-		close(pi[0]);
-        //rdirect the output to file
-        if (dup2(fd2, 1) == -1)
+        else if (id.num == 0)
         {
-            perror("dup2");
-            exit(1);
+            close(id.pi[1]);
+            //redirect the pipe to input for the cmd2
+            if (dup2(id.pi[0], 0) == -1)
+            {
+                perror("dup2");
+                exit(1);
+            }
+            close(id.pi[0]);
+            //rdirect the output to file
+            if (dup2(id.fd2, 1) == -1)
+            {
+                perror("dup2");
+                exit(1);
+            }
+            close(id.fd2);
+            if (execve(prg2->path[0], prg2->cmd, envp) == -1)
+                perror("execve");
         }
-        close(fd2);
-        if (execve(prg2->path[0], prg2->cmd, NULL) == -1)
-			perror("execve");
-        // printf("****** PARENT PROCESS ******\n");
-
-    // while (1)
-    // {
+        else
+        {
+            //wait(NULL);
+          //printf("parent process \n");
+          //should do here free !!!!!
+        }
         
-    // }
     }
-// printf("after parent process \n");
+    //printf("after parent process \n");
     return (0);
 }
+    //parent process :
+    //pi[0]//read
+    //pi[1]//write

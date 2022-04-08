@@ -6,12 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/08 10:20:56 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/08 15:22:46 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+//handle multiple pipes :
 
 int main(int args, char *argv[])
 {

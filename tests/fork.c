@@ -2,66 +2,115 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "../pipex.h"
 
-/* Read characters from the pipe and echo them to stdout. */
 
-void read_from_pipe (int file)
+//test fork:
+int main()
 {
-  FILE *stream;
-  int c;
-  stream = fdopen (file, "r");
-  while ((c = fgetc (stream)) != EOF)
-    putchar (c);
-  fclose (stream);
+  int id;
+
+  id = fork();
+
+  if (id < 0)
+  {
+        printf("error \n");
+        exit(1);
+  }
+
+    else if (id == 0)
+    {
+      printf("child process 1 \n");
+    }
+    else
+    {
+        wait(NULL);
+        id = fork();
+        if (id < 0)
+        {
+          printf("error \n");
+          exit(1);
+        }
+      else if (id == 0)
+      {
+        printf("child process 2 \n");
+      }
+      else{
+        wait(NULL);
+        printf("parent process \n");
+      }
+      
+    }
 }
 
-/* Write some random text to the pipe. */
 
-void
-write_to_pipe (int file)
-{
-  FILE *stream;
-  stream = fdopen (file, "w");
-  fprintf (stream, "hello, world!\n");
-  fprintf (stream, "goodbye, world!\n");
-  fclose (stream);
-}
 
-int
-main (void)
-{
-  pid_t pid;
-  int mypipe[2];
 
-  /* Create the pipe. */
-  if (pipe (mypipe))
-    {
-      fprintf (stderr, "Pipe failed.\n");
-      return EXIT_FAILURE;
-    }
 
-  /* Create the child process. */
-  pid = fork ();
-  if (pid == (pid_t) 0)
-    {
-      /* This is the child process.
-         Close other end first. */
-      close (mypipe[1]);
-      read_from_pipe (mypipe[0]);
-      return EXIT_SUCCESS;
-    }
-  else if (pid < (pid_t) 0)
-    {
-      /* The fork failed. */
-      fprintf (stderr, "Fork failed.\n");
-      return EXIT_FAILURE;
-    }
-  else
-    {
-      /* This is the parent process.
-         Close other end first. */
-      close (mypipe[0]);
-      write_to_pipe (mypipe[1]);
-      return EXIT_SUCCESS;
-    }
-}
+
+
+
+
+
+// /* Read characters from the pipe and echo them to stdout. */
+
+// void read_from_pipe (int file)
+// {
+//   FILE *stream;
+//   int c;
+//   stream = fdopen (file, "r");
+//   while ((c = fgetc (stream)) != EOF)
+//     putchar (c);
+//   fclose (stream);
+// }
+
+// /* Write some random text to the pipe. */
+
+// void
+// write_to_pipe (int file)
+// {
+//   FILE *stream;
+//   stream = fdopen (file, "w");
+//   fprintf (stream, "hello, world!\n");
+//   fprintf (stream, "goodbye, world!\n");
+//   fclose (stream);
+// }
+
+// int
+// main (void)
+// {
+//   pid_t pid;
+//   int mypipe[2];
+
+//   /* Create the pipe. */
+//   if (pipe (mypipe))
+//     {
+//       fprintf (stderr, "Pipe failed.\n");
+//       return EXIT_FAILURE;
+//     }
+
+//   /* Create the child process. */
+//   pid = fork ();
+//   if (pid == (pid_t) 0)
+//     {
+//       /* This is the child process.
+//          Close other end first. */
+//       close (mypipe[1]);
+//       read_from_pipe (mypipe[0]);
+//       return EXIT_SUCCESS;
+//     }
+//   else if (pid < (pid_t) 0)
+//     {
+//       /* The fork failed. */
+//       fprintf (stderr, "Fork failed.\n");
+//       return EXIT_FAILURE;
+//     }
+//   else
+//     {
+//       /* This is the parent process.
+//          Close other end first. */
+//       close (mypipe[0]);
+//       write_to_pipe (mypipe[1]);
+//       return EXIT_SUCCESS;
+//     }
+// }
