@@ -1,0 +1,17 @@
+total 112
+drwxr-xr-x  16 rmoujan  2019    544 Apr  8 17:35 .
+drwx------  29 rmoujan  2019    986 Apr  3 15:07 ..
+drwxr-xr-x  12 rmoujan  2019    408 Apr  8 16:58 .git
+-rw-r--r--   1 rmoujan  2019     24 Apr  7 15:14 .gitignore
+-rw-r--r--   1 rmoujan  2019    361 Apr  8 11:38 Makefile
+-rw-r--r--   1 rmoujan  2019    980 Apr  8 15:22 bns_pipex.c
+drwxr-xr-x  11 rmoujan  2019    374 Apr  7 15:22 files
+drwxr-xr-x  82 rmoujan  2019   2788 Apr  8 17:35 libft
+-rw-r--r--   1 rmoujan  2019   1674 Apr  8 13:32 operations.c
+-rw-r--r--   1 rmoujan  2019   1668 Apr  8 17:35 operations.o
+-rwxr-xr-x   1 rmoujan  2019  13888 Apr  8 17:35 pipex
+-rw-r--r--   1 rmoujan  2019   4372 Apr  8 17:35 pipex.c
+-rw-r--r--   1 rmoujan  2019   1739 Apr  8 17:31 pipex.h
+-rw-r--r--   1 rmoujan  2019   3308 Apr  8 17:35 pipex.o
+-rw-r--r--   1 rmoujan  2019   1253 Apr  3 13:38 process.c
+drwxr-xr-x  18 rmoujan  2019    612 Apr  8 15:48 tests

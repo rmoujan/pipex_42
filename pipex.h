@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/08 15:32:40 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/08 17:31:47 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ struct s_argument{
 
 typedef struct s_fds	t_fds;
 struct s_fds{
-    int		num;
+    int		frk1;
+	int		frk2;
     int		fd1;
     int		fd2;
 	int		pi[2];

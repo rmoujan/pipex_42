@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/08 16:57:58 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/08 17:35:20 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ int main(int argc, char *argv[], char *const envp[])
 		ft_exit();
     if (pipe(id.pi) < 0)
         ft_exit();
-    id.num = fork();
-    if (id.num < 0)
+    id.frk1 = fork();
+    if (id.frk1 < 0)
     {
         perror("fork");
         exit(1);
     }
     //child process :
-    else if (id.num == 0)
+    else if (id.frk1 == 0)
     {
         //redirect the input to file .. that makes execve read from the file for execute the cmd
         //donk ay haja te7t had cmd raah aywli yakhud input from file(fd1)
@@ -112,15 +112,16 @@ int main(int argc, char *argv[], char *const envp[])
     {
         //will wait until the child process finish for bringing the data from child process!!
         //should do here the second execeve function to execute the cmd2
-        wait(NULL);
-        id.num = fork();
-        if (id.num < 0)
+        waitpid(id.frk1, NULL, 0);
+        id.frk2 = fork();
+        if (id.frk2 < 0)
         {
             perror("fork");
             exit(1);
         }
-        else if (id.num == 0)
+        else if (id.frk2 == 0)
         {
+           // printf("childd\n");
             close(id.pi[1]);
             //redirect the pipe to input for the cmd2
             if (dup2(id.pi[0], 0) == -1)
@@ -141,11 +142,11 @@ int main(int argc, char *argv[], char *const envp[])
         }
         else
         {
-            //wait(NULL);
-          //printf("parent process \n");
-          //should do here free !!!!!
+        //    waitpid(id.frk2, NULL, 0);
+        //    wait(NULL);
+            printf("parent process \n");
+            //should do here free !!!!!
         }
-        
     }
     //printf("after parent process \n");
     return (0);
