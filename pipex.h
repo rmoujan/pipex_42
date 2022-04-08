@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/07 17:46:56 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/08 10:27:53 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# define BUFFER_SIZE 5
+// # define BUFFER_SIZE 5
 
 typedef struct s_argument	t_arg;
 struct s_argument{

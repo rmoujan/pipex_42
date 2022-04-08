@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:28:17 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/07 17:45:26 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/08 13:32:23 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,29 @@ void	test_files(char *argv[])
 	{
 		write(1, "ERROR OCCURED WHEN CHECKING FILES \n", 35);
 		exit(1);
+	}
+}
+
+void	check_exist_cmd(t_arg *prg1, t_arg *prg2)
+{
+	int i;
+
+	i = 0;
+	while (prg1->path[i])
+	{
+		if (access(prg1->path[i], F_OK) != -1)
+		{
+			prg1->path[0] = prg1->path[i];
+		}
+		i++;
+	}
+	i = 0;
+	while (prg2->path[i])
+	{
+		if (access(prg2->path[i], F_OK) != -1)
+		{
+			prg2->path[0] = prg2->path[i];
+		}
+		i++;
 	}
 }
