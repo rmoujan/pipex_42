@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/10 14:50:48 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/10 16:01:41 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	concaten_pathscmd(t_arg *prg, char *argv)
 	while (prg->path[i])
 	{
 		prg->path[i] = ft_strjoin(prg->path[i], "/\0");
-		prg->path[i] = ft_strjoin(prg->path[i], prg->cmd[0]);
+		prg->path[i] = ft_strjoin(prg->path[i] , prg->cmd[0]);
 		i++;
 	}
 }
@@ -76,7 +76,7 @@ int main(int argc, char *argv[], char *const envp[])
     t_fds   id;
 	t_arg	*prg1;
 	t_arg	*prg2;
-    int status;
+   // int status;
     
     checks_errors(argc);
     test_files(argv);
@@ -146,7 +146,7 @@ int main(int argc, char *argv[], char *const envp[])
         }
         else if (id.frk2 == 0)
         {
-            waitpid(id.frk1, &status, 0);
+            //waitpid(id.frk1, &status, 0);
             // wait(NULL);
             //pid2 = getpid();
             printf("childd 2\n");
@@ -170,12 +170,13 @@ int main(int argc, char *argv[], char *const envp[])
                 perror("execve");
 				exit(1);
 			}
-        }}
-        
-    //     else
-    //     {
-    //        // waitpid(id.frk1, &status, 0);
-    //       //  waitpid(id.frk2, &status, 0);
+        }
+		else{
+			close(id.pi[0]);
+			close(id.pi[1]);
+           	 waitpid(id.frk1, NULL, 0);
+             waitpid(id.frk2, NULL, 0);
+	}
     //         wait(NULL);
     //         printf("parent process \n");
     //         // f_free(&prg1);
@@ -203,7 +204,7 @@ int main(int argc, char *argv[], char *const envp[])
     // {
     //     //must free leaks here !!!!
     //     printf("finally inside parent process \n");
-    // }
+     }
 
     return (0);
 }

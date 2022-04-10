@@ -1,4 +1,28 @@
-Hallo WORLD
-This is me lReshe
-from 1337 lbengeurir
-13 is a school of coding
+Makefile
+bns_pipex.c
+files
+libft
+operations.c
+operations.o
+pipex
+pipex.c
+pipex.h
+pipex.o
+processes.c
+processes.o
+tests
+xr-x  12 rmoujan  2019    408 Apr 10 14:52 .git
+-rw-r--r--   1 rmoujan  2019     24 Apr  7 15:14 .gitignore
+-rw-r--r--   1 rmoujan  2019    376 Apr 10 13:52 Makefile
+-rw-r--r--   1 rmoujan  2019    980 Apr  8 15:22 bns_pipex.c
+drwxr-xr-x  12 rmoujan  2019    408 Apr 10 15:02 files
+drwxr-xr-x  82 rmoujan  2019   2788 Apr 10 15:56 libft
+-rw-r--r--   1 rmoujan  2019   1743 Apr 10 13:26 operations.c
+-rw-r--r--   1 rmoujan  2019   1744 Apr 10 15:56 operations.o
+-rwxr-xr-x   1 rmoujan  2019  14064 Apr 10 15:56 pipex
+-rw-r--r--   1 rmoujan  2019   5384 Apr 10 15:56 pipex.c
+-rw-r--r--   1 rmoujan  2019   2051 Apr 10 14:23 pipex.h
+-rw-r--r--   1 rmoujan  2019   3404 Apr 10 15:56 pipex.o
+-rw-r--r--   1 rmoujan  2019   2069 Apr 10 14:34 processes.c
+-rw-r--r--   1 rmoujan  2019   2276 Apr 10 15:56 processes.o
+drwxr-xr-x  20 rmoujan  2019    680 Apr 10 14:44 tests
