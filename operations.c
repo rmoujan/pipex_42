@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:28:17 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/08 13:32:23 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/10 13:26:36 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ void	test_files(char *argv[])
 void	check_exist_cmd(t_arg *prg1, t_arg *prg2)
 {
 	int i;
-
+	
 	i = 0;
 	while (prg1->path[i])
 	{
 		if (access(prg1->path[i], F_OK) != -1)
 		{
+			free(prg1->path[0]);
 			prg1->path[0] = prg1->path[i];
+			break;
 		}
 		i++;
 	}
@@ -55,7 +57,9 @@ void	check_exist_cmd(t_arg *prg1, t_arg *prg2)
 	{
 		if (access(prg2->path[i], F_OK) != -1)
 		{
+			free(prg2->path[0]);
 			prg2->path[0] = prg2->path[i];
+			break;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/10 12:32:04 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/10 13:28:02 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,10 @@ int main(int argc, char *argv[], char *const envp[])
         close(id.pi[1]);
         //should do here the first execeve function to execute the cmd1
         if (execve(prg1->path[0], prg1->cmd, envp) == -1)
+		{
 			perror("execve");
+			exit(1);
+		}
     }//END CHILD PROCESS
     else
     {
@@ -163,7 +166,10 @@ int main(int argc, char *argv[], char *const envp[])
             }
             close(id.fd2);
             if (execve(prg2->path[0], prg2->cmd, envp) == -1)
+			{
                 perror("execve");
+				exit(1);
+			}
         }
         
         else
@@ -185,10 +191,10 @@ int main(int argc, char *argv[], char *const envp[])
     //     i++;
     // }
     // free(prg1->path[i]);
-    while (1)
-        {
+    // while (1)
+    //     {
                     
-        }
+    //     }
     //should do here free !!!!!
     }
     }
