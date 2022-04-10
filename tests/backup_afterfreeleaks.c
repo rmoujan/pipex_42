@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   backup_afterfreeleaks.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/10 14:50:48 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/10 13:39:37 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ int main(int argc, char *argv[], char *const envp[])
                 perror("execve");
 				exit(1);
 			}
-        }}
+        }
         
     //     else
     //     {
@@ -207,4 +207,6 @@ int main(int argc, char *argv[], char *const envp[])
 
     return (0);
 }
-//NOTE this fct is working and we don't have memory leaks !!! but still should normi !!!!
+    //parent process :
+    //pi[0]//read
+    //pi[1]//write

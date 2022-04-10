@@ -1,2 +1,30 @@
-
-I will be printed in the file tricky.txt
+      28
+ school of coding in morocco
+exactly in Bengeurir
+hello world this is Reshe
+2022
+000000000000
+111111111111
+222222222222
+333333333333
+444444444444
+555555555555
+666666666666
+888888888888
+999999999999
+777777777777
+101010101010
+/////
+what I must do tommoorrow :
+1- include makefile of libft on makefile of pipex is done
+2- cheak the first prg with file1 and cmd1 is correct and put
+all them in struct and minimize your code.
+3-pay attention on pointers when u send them as parameter and bellan de free
+4- start the second prg
+5- understand all functions well
+NOTE : anji negad prblm de wc -l by understanding pipe and dup and exceve !!!!
+---->plan for tomorow :
+1-test all cmds : I think all tests are done (I'm gonna cheak page de correction)
+2-understand all functions well
+3-pay attention on pointers when u send them as parameter and bellan de free
+4-start bonus

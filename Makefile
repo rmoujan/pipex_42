@@ -3,7 +3,8 @@ CC=gcc
 CFLAGS= -Wall -Wextra -Werror
 RM = rm -f
 SRC=pipex.c\
-	operations.c
+	operations.c\
+	processes.c 
 
 OBJ = $(subst .c,.o,$(SRC))
 lib = ./libft/libft.a
