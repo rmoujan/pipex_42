@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/08 17:35:20 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/10 11:22:42 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int main(int argc, char *argv[], char *const envp[])
     t_fds   id;
 	t_arg	*prg1;
 	t_arg	*prg2;
-	
+   int status;
+    //int pid1;
+   // int pid2;
     checks_errors(argc);
     test_files(argv);
 	//preparing first cmd :
@@ -89,6 +91,8 @@ int main(int argc, char *argv[], char *const envp[])
     {
         //redirect the input to file .. that makes execve read from the file for execute the cmd
         //donk ay haja te7t had cmd raah aywli yakhud input from file(fd1)
+       // pid1 = getpid();
+       printf("child 1 \n");
 		if (dup2(id.fd1, 0) == -1)
         {
             perror("dup2");
@@ -112,7 +116,6 @@ int main(int argc, char *argv[], char *const envp[])
     {
         //will wait until the child process finish for bringing the data from child process!!
         //should do here the second execeve function to execute the cmd2
-        waitpid(id.frk1, NULL, 0);
         id.frk2 = fork();
         if (id.frk2 < 0)
         {
@@ -121,7 +124,10 @@ int main(int argc, char *argv[], char *const envp[])
         }
         else if (id.frk2 == 0)
         {
-           // printf("childd\n");
+            waitpid(id.frk1, &status, 0);
+            // wait(NULL);
+            //pid2 = getpid();
+            printf("childd 2\n");
             close(id.pi[1]);
             //redirect the pipe to input for the cmd2
             if (dup2(id.pi[0], 0) == -1)
@@ -140,15 +146,22 @@ int main(int argc, char *argv[], char *const envp[])
             if (execve(prg2->path[0], prg2->cmd, envp) == -1)
                 perror("execve");
         }
-        else
-        {
-        //    waitpid(id.frk2, NULL, 0);
-        //    wait(NULL);
-            printf("parent process \n");
-            //should do here free !!!!!
-        }
+        // else if(id.frk2 != 0)
+        // {
+        //    // waitpid(id.frk1, &status, 0);
+        //   //  waitpid(id.frk2, &status, 0);
+        //     //wait(NULL);
+        //     printf("parent process \n");
+        //     //should do here free !!!!!
+        // }
     }
-    //printf("after parent process \n");
+    wait(NULL);
+    if (id.frk1 != 0 && id.frk2 != 0)
+    {
+       // waitpid(id.frk1, &status, 0);
+       // waitpid(id.frk2, &status, 0);
+        printf("finally inside parent process \n");
+    }  
     return (0);
 }
     //parent process :
