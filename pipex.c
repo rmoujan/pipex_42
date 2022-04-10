@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/10 11:35:23 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/10 12:32:04 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,32 @@ void	getting_paths(char *const envp[], t_arg *prg)
 	}
 }
 
+// void    f_free(t_arg **prg)
+// {
+//     int i;
+//     t_arg *arg;
+
+//     i = 0;
+//     arg = *prg;
+//     while (arg->path[i])
+//     {
+//         free(arg->path[i]);
+//         i++;
+//     }
+//     free(arg->path);
+// }
+
+// void	check_cmd(t_arg prg)
+// {
+	
+// }
 int main(int argc, char *argv[], char *const envp[])
 {
     t_fds   id;
 	t_arg	*prg1;
 	t_arg	*prg2;
-   int status;
-    //int pid1;
-   // int pid2;
+    int status;
+    
     checks_errors(argc);
     test_files(argv);
 	//preparing first cmd :
@@ -154,15 +172,33 @@ int main(int argc, char *argv[], char *const envp[])
           //  waitpid(id.frk2, &status, 0);
             wait(NULL);
             printf("parent process \n");
-            //should do here free !!!!!
+            // f_free(&prg1);
+
+    // int i;
+    // // //t_arg *arg;
+
+    // i = 0;
+    // // //arg = *prg;
+    // while (prg1->path[i])
+    // {
+    //     free(prg1->path[i]);
+    //     i++;
+    // }
+    // free(prg1->path[i]);
+    while (1)
+        {
+                    
         }
+    //should do here free !!!!!
+    }
     }
     // wait(NULL);
     // if (id.frk1 != 0 && id.frk2 != 0)
     // {
     //     //must free leaks here !!!!
     //     printf("finally inside parent process \n");
-    // }  
+    // }
+
     return (0);
 }
     //parent process :
