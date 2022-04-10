@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/10 11:22:42 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/10 11:35:23 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int main(int argc, char *argv[], char *const envp[])
     {
         //will wait until the child process finish for bringing the data from child process!!
         //should do here the second execeve function to execute the cmd2
+        // waitpid(id.frk1, &status, 0);
         id.frk2 = fork();
         if (id.frk2 < 0)
         {
@@ -146,22 +147,22 @@ int main(int argc, char *argv[], char *const envp[])
             if (execve(prg2->path[0], prg2->cmd, envp) == -1)
                 perror("execve");
         }
-        // else if(id.frk2 != 0)
-        // {
-        //    // waitpid(id.frk1, &status, 0);
-        //   //  waitpid(id.frk2, &status, 0);
-        //     //wait(NULL);
-        //     printf("parent process \n");
-        //     //should do here free !!!!!
-        // }
+        
+        else
+        {
+           // waitpid(id.frk1, &status, 0);
+          //  waitpid(id.frk2, &status, 0);
+            wait(NULL);
+            printf("parent process \n");
+            //should do here free !!!!!
+        }
     }
-    wait(NULL);
-    if (id.frk1 != 0 && id.frk2 != 0)
-    {
-       // waitpid(id.frk1, &status, 0);
-       // waitpid(id.frk2, &status, 0);
-        printf("finally inside parent process \n");
-    }  
+    // wait(NULL);
+    // if (id.frk1 != 0 && id.frk2 != 0)
+    // {
+    //     //must free leaks here !!!!
+    //     printf("finally inside parent process \n");
+    // }  
     return (0);
 }
     //parent process :
