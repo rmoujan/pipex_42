@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/11 12:05:29 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/11 14:41:44 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	check_exist_cmd(t_arg *prg1, t_arg *prg2);
 void	first_process(t_fds id, t_arg *prg1, char *const envp[]);
 void	second_process(t_fds id, t_arg *prg2, char *const envp[]);
 void	begin_forking(t_fds id, t_arg *prg1, t_arg *prg2, char *const envp[]);
+void	ft_check(t_arg *prg);
+int		ft_calcul(char *str);
 void	ft_close(t_fds id);
 /// libft's functions //
 

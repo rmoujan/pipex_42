@@ -1,0 +1,10 @@
+1337 is a school of coding in morocco
+what I must do tommoorrow :
+1- include makefile of libft on makefile of pipex is done
+2- cheak the first prg with file1 and cmd1 is correct and put
+all them in struct and minimize your code.
+3-pay attention on pointers when u send them as parameter and bellan de free
+NOTE : anji negad prblm de wc -l by understanding pipe and dup and exceve !!!!
+---->plan for tomorow :
+1-test all cmds : I think all tests are done (I'm gonna cheak page de correction)
+3-pay attention on pointers when u send them as parameter and bellan de free

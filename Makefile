@@ -4,7 +4,8 @@ CFLAGS= -Wall -Wextra -Werror
 RM = rm -f
 SRC=pipex.c\
 	operations.c\
-	processes.c 
+	processes.c\
+	handle_errors.c
 
 OBJ = $(subst .c,.o,$(SRC))
 lib = ./libft/libft.a
