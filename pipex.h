@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/11 10:37:33 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/11 12:05:29 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-// # define BUFFER_SIZE 5
 
 typedef struct s_argument	t_arg;
 struct s_argument{
@@ -28,7 +27,7 @@ struct s_argument{
 	char	**cmd;
 };
 
-typedef struct s_fds	t_fds;
+typedef struct s_fds		t_fds;
 struct s_fds{
 	pid_t	frk1;
 	pid_t	frk2;

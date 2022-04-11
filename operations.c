@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:28:17 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/11 10:37:16 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/11 12:09:57 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	test_files(char *argv[])
 
 void	check_exist_cmd(t_arg *prg1, t_arg *prg2)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (prg1->path[i])
 	{
@@ -48,7 +48,7 @@ void	check_exist_cmd(t_arg *prg1, t_arg *prg2)
 		{
 			free(prg1->path[0]);
 			prg1->path[0] = prg1->path[i];
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -59,7 +59,7 @@ void	check_exist_cmd(t_arg *prg1, t_arg *prg2)
 		{
 			free(prg2->path[0]);
 			prg2->path[0] = prg2->path[i];
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -67,8 +67,10 @@ void	check_exist_cmd(t_arg *prg1, t_arg *prg2)
 
 void	ft_close(t_fds id)
 {
-    close(id.pi[0]);
+	close(id.pi[0]);
 	close(id.pi[1]);
-    close(id.fd1);
-    close(id.fd2);
+	close(id.fd1);
+	close(id.fd2);
+	waitpid(id.frk1, NULL, 0);
+	waitpid(id.frk2, NULL, 0);
 }
