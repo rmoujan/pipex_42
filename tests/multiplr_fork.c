@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 13:12:31 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/13 14:28:19 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 11:57:31 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ int main(int argc, char *argv[])
     {
         if(fork() == 0)
         {
-            printf("[son] pid %d from [parent] pid %d\n",getpid(),getppid());
+            //printf("[son] pid %d from [parent] pid %d\n",getpid(),getppid());
             exit(0);
         }
     }
+    
     for(int i=0;i<2;i++) // loop will run n times (n=5)
         wait(NULL);
-
+printf("afer loop \n");
     // pid = fork();
 
     // if (pid < 0)

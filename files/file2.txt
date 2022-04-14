@@ -1,21 +1,16 @@
-total 144
-drwxr-xr-x  20 rmoujan  2019    680 Apr 13 11:00 .
-drwx------  31 rmoujan  2019   1054 Apr 11 18:23 ..
--rw-r--r--@  1 rmoujan  2019   6148 Apr 11 13:40 .DS_Store
-drwxr-xr-x  12 rmoujan  2019    408 Apr 11 18:26 .git
--rw-r--r--   1 rmoujan  2019     24 Apr  7 15:14 .gitignore
--rw-r--r--   1 rmoujan  2019    393 Apr 11 14:48 Makefile
--rw-r--r--   1 rmoujan  2019    980 Apr  8 15:22 bns_pipex.c
-drwxr-xr-x  15 rmoujan  2019    510 Apr 11 12:33 files
--rw-r--r--   1 rmoujan  2019   1688 Apr 11 14:58 handle_errors.c
--rw-r--r--   1 rmoujan  2019   1616 Apr 13 11:00 handle_errors.o
-drwxr-xr-x  85 rmoujan  2019   2890 Apr 13 11:00 libft
--rw-r--r--   1 rmoujan  2019   1898 Apr 11 15:06 operations.c
--rw-r--r--   1 rmoujan  2019   2068 Apr 13 11:00 operations.o
--rwxr-xr-x   1 rmoujan  2019  14248 Apr 13 11:00 pipex
--rw-r--r--   1 rmoujan  2019   2088 Apr 11 14:46 pipex.c
--rw-r--r--   1 rmoujan  2019   2105 Apr 11 14:41 pipex.h
--rw-r--r--   1 rmoujan  2019   2352 Apr 13 11:00 pipex.o
--rw-r--r--   1 rmoujan  2019   2000 Apr 11 12:02 processes.c
--rw-r--r--   1 rmoujan  2019   2236 Apr 13 11:00 processes.o
-drwxr-xr-x  22 rmoujan  2019    748 Apr 11 13:45 tests
+1337 is a school of coding in morocco
+exactly in Bengeurir
+what I must do tommoorrow :
+1- include makefile of libft on makefile of pipex is done
+2- cheak the first prg with file1 and cmd1 is correct and put
+all them in struct and minimize your code.
+3-pay attention on pointers when u send them as parameter and bellan de free
+4- start the second prg
+5- understand all functions well
+NOTE : anji negad prblm de wc -l by understanding pipe and dup and exceve !!!!
+---->plan for tomorow :
+1-test all cmds : I think all tests are done (I'm gonna cheak page de correction)
+2-understand all functions well
+3-pay attention on pointers when u send them as parameter and bellan de free
+4-start bonus
+NOTE : fash kanfer9 processes dans des fonctions fe7ali prg kay sleep for a while 3ad kay executi !!!!!!!!!

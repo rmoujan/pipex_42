@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/13 18:25:36 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 12:17:18 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     {
         if (pipe(fd[i]) == -1)
             ft_error("pipe");
-		// printf("test\n");
+		//printf("the pipe number %d\n", i);
 		i++;
 	}
 	i = 0;
@@ -40,37 +40,41 @@ int main(int argc, char *argv[])
 	{
 		pid[i] = fork();
 		if(pid[i] < 0)
-		{
 			ft_error("fork");
-			// printf("pid[%d] == %d\n", i, pid[i]);
-			exit(0);
-			// printf("test \n");
-		}
-		// printf("test \n");
-		
+		else if (pid[i] == 0)
+			return (0);
+		// printf("the process number %d \n", i);
 		i++;
 	}
 	i = 0;
-	while (i < (argc - 3 ))
-	{
-		//beginnen :
-		if (pid[i] == 0)
-		{
-			printf("child process number %d \n", i);
-		}
-		else
-		{int j = 0;
+	// working with processes :
+	
+	//wait for all the child processes to finish executing :
+	// while (wait(NULL) != -1);
+	while (i < (argc - 3))
+		wait(NULL);
+	
+	// i = 0;
+	// while (i < (argc - 3 ))
+	// {
+	// 	//beginnen :
+	// 	if (pid[i] == 0)
+	// 	{
+	// 		printf("child process number %d \n", i);
+	// 	}
+	// 	else
+	// 	{int j = 0;
 			
-			while (j < (argc - 3))
-			{
-			waitpid(pid[j],NULL, 0);
-			printf("parent process number %d\n", j);
-			j++;
-			}
+	// 		while (j < (argc - 3))
+	// 		{
+	// 		waitpid(pid[j],NULL, 0);
+	// 		printf("parent process number %d\n", j);
+	// 		j++;
+	// 		}
 
-		}
-		i++;
-	}
+	// 	}
+	// 	i++;
+	// }
 	// for(int i=0;i<argc - 3;i++) // loop will run n times (n=5)
     // {
     //     if(fork() == 0)

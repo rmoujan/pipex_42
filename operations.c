@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:28:17 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/11 15:06:02 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 12:07:20 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	ft_close(t_fds id)
 	close(id.pi[1]);
 	close(id.fd1);
 	close(id.fd2);
-	waitpid(id.frk1, NULL, 0);
-	waitpid(id.frk2, NULL, 0);
+	if (waitpid(id.frk1, NULL, 0) == -1)
+		perror("waitpid");
+	if (waitpid(id.frk2, NULL, 0) == -1)
+		perror("waitpid");
 }
