@@ -6,11 +6,12 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 17:48:17 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 18:24:07 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "libft/libft.h"
 
 //handle multiple pipes :
 void	ft_error(char *str)
@@ -19,12 +20,18 @@ void	ft_error(char *str)
 	exit(1);
 }
 
+void	ft_exit(void)
+{
+	write(1, "ERROR MANAGEMENT\n", 17);
+	exit(1);
+}
+
 int	main(int argc, char *argv[], char *const envp[])
 {
 	int i;
 	checks_error_bns(argc);
-	int pid[argc - 3];
-    int fd[argc - 4][2];
+	// int pid[argc - 3];
+    // int fd[argc - 4][2];
 	t_arg **prg;
 	
 	i = 0;
@@ -45,11 +52,12 @@ int	main(int argc, char *argv[], char *const envp[])
 	while (prg[j])
 	{
 		i = 0;
-		while (prg[j]->path[i])
+		while (prg[j]->cmd[i])
 		{
-			printf("prg[%d]->path[%d] == %s",j,i, prg[j]->path[i]);
+			printf("prg[%d]->cmd[%d] == %s\n",j,i, prg[j]->cmd[i]);
 			i++;
 		}
+		printf("*********\n");
 	j++;
 	}
 

@@ -6,11 +6,12 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 17:43:52 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 18:16:54 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "libft/libft.h"
 
 void	checks_error_bns(int argc)
 {
@@ -35,7 +36,7 @@ void	concaten_pathscmd_bns(t_arg **prg, char **argv)
 		j++;
 		k++;
 	}
-	ft_check(prg);
+	ft_checkbns(prg);
 	j = 0;
 	while (prg[j])
 	{

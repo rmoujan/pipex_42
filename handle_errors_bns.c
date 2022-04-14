@@ -6,14 +6,14 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:22:36 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 17:32:11 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 18:17:08 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
 
-void	ft_check(t_arg **prg)
+void	ft_checkbns(t_arg **prg)
 {
 	int	i;
     int j;

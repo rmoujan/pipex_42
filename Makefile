@@ -1,5 +1,5 @@
 NAME=pipex
-bonus=pipex_bns
+NAME2=pipex_bns
 CC=gcc
 CFLAGS= -Wall -Wextra -Werror
 RM = rm -f
@@ -23,13 +23,23 @@ all : $(NAME)
 $(NAME):${OBJ}
 	@make -C libft
 	$(CC) $(OBJ) $(lib) -o $(NAME)
+
+%.o : %.c
+	@${CC} -c ${CFLAGS} $< -o $@
+
+bonus :$(NAME2)
+
+$(NAME2):${OBJBNS}
+	@make -C libft
+	$(CC) $(OBJBNS) $(lib) -o $(NAME2)
+
 %.o : %.c
 	@${CC} -c ${CFLAGS} $< -o $@
 
 clean:
-	$(RM) $(OBJ) $(libobj)
+	$(RM) $(OBJ) $(OBJBNS) $(libobj)
 
 fclean:clean
-	$(RM) $(NAME) $(lib)
+	$(RM) $(NAME) $(NAME2) $(lib)
 	
 re:fclean all

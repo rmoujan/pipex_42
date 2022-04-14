@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 17:44:04 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 18:17:23 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	checks_error_bns(int argc);
 void	check_exist_cmdbns(t_arg **prg);
 void	getting_paths_bns(char *const envp[], t_arg **prg);
 void	concaten_pathscmd_bns(t_arg **prg, char **argv);
+void	ft_checkbns(t_arg **prg);
 
 /// libft's functions //
 
