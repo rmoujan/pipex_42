@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 12:17:18 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 17:48:17 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,73 @@ void	ft_error(char *str)
 	exit(1);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *const envp[])
 {
 	int i;
+	checks_error_bns(argc);
 	int pid[argc - 3];
     int fd[argc - 4][2];
-    
-	i = 0; 
-	//creation of the pipe:
-    while (i < (argc - 4))
-    {
-        if (pipe(fd[i]) == -1)
-            ft_error("pipe");
-		//printf("the pipe number %d\n", i);
-		i++;
-	}
+	t_arg **prg;
+	
 	i = 0;
-	//creation processes :
+	//checks errors and preparing cmds:
+	prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
 	while (i < (argc - 3))
 	{
-		pid[i] = fork();
-		if(pid[i] < 0)
-			ft_error("fork");
-		else if (pid[i] == 0)
-			return (0);
-		// printf("the process number %d \n", i);
+		prg[i] = (t_arg *)malloc(sizeof(t_arg));
 		i++;
 	}
+	prg[i]= NULL;
+	getting_paths_bns(envp, prg);
+	concaten_pathscmd_bns(prg, argv);
+	check_exist_cmdbns(prg);
+	//
+	int j = 0;
 	i = 0;
-	// working with processes :
+	while (prg[j])
+	{
+		i = 0;
+		while (prg[j]->path[i])
+		{
+			printf("prg[%d]->path[%d] == %s",j,i, prg[j]->path[i]);
+			i++;
+		}
+	j++;
+	}
+
 	
-	//wait for all the child processes to finish executing :
-	// while (wait(NULL) != -1);
-	while (i < (argc - 3))
-		wait(NULL);
+	// //creation of the pipe:
+    // while (i < (argc - 4))
+    // {
+    //     if (pipe(fd[i]) == -1)
+    //         ft_error("pipe");
+	// 	//printf("the pipe number %d\n", i);
+	// 	i++;
+	// }
+	// i = 0;
+	// //creation processes :
+	// while (i < (argc - 3))
+	// {
+	// 	pid[i] = fork();
+	// 	if(pid[i] < 0)
+	// 		ft_error("fork");
+	// 	else if (pid[i] == 0)
+	// 		return (0);
+	// 	// printf("the process number %d \n", i);
+	// 	i++;
+	// }
+	// i = 0;
+	// // working with processes :
+	
+	// //wait for all the child processes to finish executing :
+	// // while (wait(NULL) != -1);
+	// while (i < (argc - 3))
+	// 	wait(NULL);
+	
+	// //END
+
+
+
 	
 	// i = 0;
 	// while (i < (argc - 3 ))

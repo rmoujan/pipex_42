@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/11 14:41:44 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/14 17:44:04 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ struct s_fds{
 	int		pi[2];
 };
 
-// functions'pipex ///
+//*** maindatory part for pipex ***//
 void	checks_errors(int argc);
 void	test_files(char *argv[]);
 void	fct(char **argv, int file);
@@ -50,6 +50,13 @@ void	begin_forking(t_fds id, t_arg *prg1, t_arg *prg2, char *const envp[]);
 void	ft_check(t_arg *prg);
 int		ft_calcul(char *str);
 void	ft_close(t_fds id);
+
+//*** bonus part for pipex ***//
+void	checks_error_bns(int argc);
+void	check_exist_cmdbns(t_arg **prg);
+void	getting_paths_bns(char *const envp[], t_arg **prg);
+void	concaten_pathscmd_bns(t_arg **prg, char **argv);
+
 /// libft's functions //
 
 char	*ft_strjjoin(char **s1, char **s2);
