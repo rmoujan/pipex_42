@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 18:24:07 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/16 12:31:53 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ void	ft_exit(void)
 int	main(int argc, char *argv[], char *const envp[])
 {
 	int i;
-	checks_error_bns(argc);
-	// int pid[argc - 3];
-    // int fd[argc - 4][2];
+	int pid[argc - 3];
+    int pi[argc - 4][2]; 
 	t_arg **prg;
+	t_fds	id;
 	
 	i = 0;
 	//checks errors and preparing cmds:
+	checks_error_bns(argc);
 	prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
 	while (i < (argc - 3))
 	{
@@ -46,76 +47,97 @@ int	main(int argc, char *argv[], char *const envp[])
 	getting_paths_bns(envp, prg);
 	concaten_pathscmd_bns(prg, argv);
 	check_exist_cmdbns(prg);
-	//
-	int j = 0;
-	i = 0;
-	while (prg[j])
-	{
-		i = 0;
-		while (prg[j]->cmd[i])
-		{
-			printf("prg[%d]->cmd[%d] == %s\n",j,i, prg[j]->cmd[i]);
-			i++;
-		}
-		printf("*********\n");
-	j++;
-	}
-
+	// //
+	// int j = 0;
+	// i = 0;
+	// while (prg[j])
+	// {
+	// 	i = 0;
+	// 	while (prg[j]->path[i])
+	// 	{
+	// 		printf("prg[%d]->cmd[%d] == %s\n",j,i, prg[j]->path[i]);
+	// 		i++;
+	// 	}
+	// 	printf("*********\n");
+	// j++;
+	// }
+	// //
 	
 	// //creation of the pipe:
-    // while (i < (argc - 4))
-    // {
-    //     if (pipe(fd[i]) == -1)
-    //         ft_error("pipe");
-	// 	//printf("the pipe number %d\n", i);
-	// 	i++;
-	// }
-	// i = 0;
-	// //creation processes :
-	// while (i < (argc - 3))
-	// {
-	// 	pid[i] = fork();
-	// 	if(pid[i] < 0)
-	// 		ft_error("fork");
-	// 	else if (pid[i] == 0)
-	// 		return (0);
-	// 	// printf("the process number %d \n", i);
-	// 	i++;
-	// }
+    while (i < (argc - 4))
+    {
+        if (pipe(pi[i]) == -1)
+            ft_error("pipe");
+		//printf("the pipe number %d\n", i);
+		i++;
+	}
+	i = 0;
+	//creation processes :
+	while (i < (argc - 3))
+	{
+		pid[i] = fork();
+		if(pid[i] < 0)
+			ft_error("fork");
+		else if (pid[i] == 0)
+			return (0);
+		printf("the process number %d \n", i);
+		i++;
+	}
 	// i = 0;
 	// // working with processes :
-	
 	// //wait for all the child processes to finish executing :
-	// // while (wait(NULL) != -1);
+	while (wait(NULL) != -1);
 	// while (i < (argc - 3))
 	// 	wait(NULL);
-	
-	// //END
-
-
-
-	
 	// i = 0;
-	// while (i < (argc - 3 ))
+	// while (i < 4)
 	// {
-	// 	//beginnen :
-	// 	if (pid[i] == 0)
-	// 	{
-	// 		printf("child process number %d \n", i);
-	// 	}
-	// 	else
-	// 	{int j = 0;
-			
-	// 		while (j < (argc - 3))
-	// 		{
-	// 		waitpid(pid[j],NULL, 0);
-	// 		printf("parent process number %d\n", j);
-	// 		j++;
-	// 		}
-
-	// 	}
+	// 	printf("pid[%d] == %d\n", i, pid[i]);
 	// 	i++;
-	// }
+	// }	
+	// //END checking and creating processes and creating pipes
+	id.fd1 = open(argv[1], O_RDWR | O_CREAT, 0666);
+	id.fd2 = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
+	if (id.fd1 == -1 || id.fd2 == -1)
+		ft_exit();
+	//starting forking ::
+	i = 0;
+	while (i < (argc - 3 ))
+	{
+		if (pid[i] == 0)
+		{
+			//should here execute the childs processes !!!
+			printf("child process number %d \n", i);
+	if (dup2(id.fd1, 0) == -1)
+	{
+		perror("dup2");
+		exit(1);
+	}
+	close(id.fd1);
+	close(id.pi[0]);
+	ft_close(id, pi, i, argc);
+	if (dup2(id.pi[1], 1) == -1)
+	{
+		perror("dup2");
+		exit(1);
+	}
+	close(id.pi[1]);
+	if (execve(prg[i]->path[0], prg[i]->cmd, envp) == -1)
+	{
+		perror("execve");
+		exit(1);
+	}
+			
+		}
+		// else
+		// {
+		// 	printf("parent process number %d\n", i);
+		// }
+		i++;
+	}
+
+	// END 
+	
 	// for(int i=0;i<argc - 3;i++) // loop will run n times (n=5)
     // {
     //     if(fork() == 0)

@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 18:16:54 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/16 12:32:50 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,18 @@ void	check_exist_cmdbns(t_arg **prg)
 			i++;
 		}
 		j++;		
+	}
+}
+
+ft_closebns(int fd, int pi[][], int i, int argc)
+{
+	if (i == 0)
+	{
+		close(fd);
+	}
+	while (i < (argc - 4))
+	{
+		close(pi[i]);
+		i++;
 	}
 }
