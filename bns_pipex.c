@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/16 18:10:02 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/16 18:30:03 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int x = 0;
 		{
 				// printf("koko \n");
 				//should here execute the first process that read from file
-				// printf("inside first process \n");
+				printf("inside first process \n");
 				if (dup2(id.fd1, 0) == -1)
 				{
 					printf("first dup \n");
@@ -133,19 +133,22 @@ int x = 0;
 				}
 		}
 		else
-		{//parent process :
-		
+		{
+			//parent process :
+			printf("une seule fois \n");
 			read(pi[0][0], &i, sizeof(x));
-			// printf("\nfrom parent process i is ==%d\n", i);
-			while (i < (argc - 5))
+			printf("\n from parent process i is == %d \n", i);
+			//had while hiya li 3eliha kolshiii !!!!!!
+			while (i <= (argc - 5))
 			{
-				read(pi[i][0], &i, sizeof(x));
+				printf("inside while \n");
+				read(pi[i - 1][0], &i, sizeof(x));
 				pid[i] = fork();
 				if(pid[i] < 0)
 					ft_error("fork");
 				else if (pid[i]  == 0)
 				{
-					printf("child process number %d\n",i);
+					printf("child process number %d \n",i);
 					//child process :
 					if (dup2(pi[i][0], 0) == -1)
 					{
@@ -154,7 +157,7 @@ int x = 0;
 						exit(1);
 					}
 					ft_close_all(id, i, argc, pi);
-					if (dup2(pi[0][1], 1) == -1)
+					if (dup2(pi[i][1], 1) == -1)
 					{
 						printf("second dup \n");
 						perror("dup2");
@@ -168,14 +171,12 @@ int x = 0;
 						perror("execve");
 						exit(1);
 					}
-					return (0);
 				}
-				i++;
 			}
 			if (pid[i] != 0)
 				{
 					//parent process :
-					//should do the last process :
+					//should do the last process when cmd send the output to file:
 					printf("parent process \n");
 					while (wait(NULL) != -1);	
 				}
