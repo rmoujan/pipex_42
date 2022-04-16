@@ -1,12 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
+/*   back2_bnspipex.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/16 16:51:01 by rmoujan           #+#    #+#             */
+/*   Updated: 2022/04/16 16:51:04 by rmoujan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   bns_pipex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/16 17:05:20 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/16 16:48:26 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +113,13 @@ int	main(int argc, char *argv[], char *const envp[])
 		i++;
 	}
 	i = 0;
-	//creation first process that read from file and execute cmd :
-	pid[i] = fork();
-	if(pid[i] < 0)
+	//creation processes :
+	while (i < (argc - 3))
+	{
+		pid[i] = fork();
+		if(pid[i] < 0)
 			ft_error("fork");
-		else if (pid[i] == 0)
+		else if (pid[i] == 0 && i == 0)
 		{
 				// printf("koko \n");
 				//should here execute the first process that read from file
@@ -130,82 +144,29 @@ int	main(int argc, char *argv[], char *const envp[])
 					exit(1);
 				}
 		}
-		else
-		{//parent process :
-		
-			while (i < (argc - 5))
-			{
-				pid[i] = fork();
-				if(pid[i] < 0)
-				ft_error("fork");
-				if (pid[i]  == 0)
-				{
-					//child process :
-					return (0);
-				}
-				else
-				{
-					//parent process :
-					//should do the last process :
-					
-				}
-			i++;
-			}
-		}
-	//creation processes :
-	// while (i < (argc - 3))
-	// {
-	// 	pid[i] = fork();
-	// 	if(pid[i] < 0)
-	// 		ft_error("fork");
-		// else if (pid[i] == 0 && i == 0)
-		// {
-		// 		// printf("koko \n");
-		// 		//should here execute the first process that read from file
-		// 		// printf("inside first process \n");
-		// 		if (dup2(id.fd1, 0) == -1)
-		// 		{
-		// 			printf("first dup \n");
-		// 			perror("dup2");
-		// 			exit(1);
-		// 		}
-		// 		ft_close_all(id, i, argc, pi);
-		// 		if (dup2(pi[0][1], 1) == -1)
-		// 		{
-		// 			printf("second dup \n");
-		// 			perror("dup2");
-		// 			exit(1);
-		// 		}
-		// 		close(pi[0][1]);
-		// 		if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
-		// 		{
-		// 			perror("execve");
-		// 			exit(1);
-		// 		}
-		// }
-		// 	if (pid[i] == 0)
-		// {
+			if (pid[i] == 0)
+		{
 			
-		// 		if (dup2(pi[0], 0) == -1)
-		// 		{
-		// 			printf("first dup \n");
-		// 			perror("dup2");
-		// 			exit(1);
-		// 		}
-		// 		ft_close_all(id, i, argc, pi);
-		// 		if (dup2(pi[0][1], 1) == -1)
-		// 		{
-		// 			printf("second dup \n");
-		// 			perror("dup2");
-		// 			exit(1);
-		// 		}
-		// 		close(pi[0][1]);
-		// 		if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
-		// 		{
-		// 			perror("execve");
-		// 			exit(1);
-		// 		}
-		// }
+				if (dup2(pi[0], 0) == -1)
+				{
+					printf("first dup \n");
+					perror("dup2");
+					exit(1);
+				}
+				ft_close_all(id, i, argc, pi);
+				if (dup2(pi[0][1], 1) == -1)
+				{
+					printf("second dup \n");
+					perror("dup2");
+					exit(1);
+				}
+				close(pi[0][1]);
+				if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
+				{
+					perror("execve");
+					exit(1);
+				}
+		}
 	// return (0);
 		// else if (pid[i] == 0 && i == (argc - 4))
 		// {
