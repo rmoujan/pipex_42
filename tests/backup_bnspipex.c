@@ -1,12 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
+/*   backup_bnspipex.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/16 15:14:44 by rmoujan           #+#    #+#             */
+/*   Updated: 2022/04/16 15:14:46 by rmoujan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   bns_pipex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/16 15:58:52 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/16 15:13:29 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,38 +78,22 @@ int	main(int argc, char *argv[], char *const envp[])
 	// 		printf("prg[%d]->cmd[%d] == %s\n",j,i, prg[j]->cmd[i]);
 	// 		i++;
 	// 	}
-	// 	// break;
+	// 	break;
 	// 	printf("*********\n");
 	// j++;
 	// }
-	// //**
-	// j = 0;
-	// i = 0;
-	// while (prg[j])
-	// {
-	// 	i = 0;
-	// 	while (prg[j]->path[i])
-	// 	{
-	// 		printf("prg[%d]->cmd[%d] == %s\n",j,i, prg[j]->path[i]);
-	// 		i++;
-	// 	}
-	// 	// break;
-	// 	printf("*********\n");
-	// j++;
-	// }
-	//**
-	// starting creating processes and creating pipes
+	//
+		// //END checking and creating processes and creating pipes
 	id.fd1 = open(argv[1], O_RDWR | O_CREAT, 0666);
 	id.fd2 = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
 	if (id.fd1 == -1 || id.fd2 == -1)
 		ft_exit();
 	// //creation of the pipe:
-	i = 0;
     while (i < (argc - 4))
     {
         if (pipe(pi[i]) == -1)
             ft_error("pipe");
-		// printf("the pipe number %d\n", i);
+		//printf("the pipe number %d\n", i);
 		i++;
 	}
 	i = 0;
@@ -107,41 +103,11 @@ int	main(int argc, char *argv[], char *const envp[])
 		pid[i] = fork();
 		if(pid[i] < 0)
 			ft_error("fork");
-		else if (pid[i] == 0 && i == 0)
-		{
-				// printf("koko \n");
-				//should here execute the first process that read from file
-				// printf("inside first process \n");
-				if (dup2(id.fd1, 0) == -1)
-				{
-					printf("first dup \n");
-					perror("dup2");
-					exit(1);
-				}
-				// close(id.fd1);
-				// close(id.pi[0]);
-				ft_close_all(id, i, argc, pi);
-				// if (dup2(pi[0][1], 1) == -1)
-				// {
-				// 	printf("second dup \n");
-				// 	perror("dup2");
-				// 	exit(1);
-				// }
-				// close(pi[0][1]);
-				if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
-				{
-					perror("execve");
-					exit(1);
-				}
-		}
-		else if (pid[i] == 0 && i != 0)
-		{
-			waitpid(pid[0], NULL, 0);
-			printf("second process \n");
-		}
-		i++;	
-		}
-
+		else if (pid[i] == 0)
+			return (0);
+		//printf("the process number %d \n", i);
+		i++;
+	}
 	// i = 0;
 	// // working with processes :
 	// //wait for all the child processes to finish executing :
@@ -151,58 +117,58 @@ int	main(int argc, char *argv[], char *const envp[])
 	
 
 	//starting forking ::
-	// i = 0;
-	// while (i < (argc - 3 ))
-	// {
-	// 	if (i == 0)
-	// 	{
-	// 		// printf("koko \n");
-	// 		//should here execute the first process that read from file
-	// 		if (pid[i] == 0)
-	// 		{
-	// 			printf("inside first process \n");
-	// 			if (dup2(id.fd1, 0) == -1)
-	// 			{
-	// 				perror("dup2");
-	// 				exit(1);
-	// 			}
-	// 			// close(id.fd1);
-	// 			// close(id.pi[0]);
-	// 			ft_close_all(id, i, argc, pi);
-	// 			if (dup2(pi[0][1], 1) == -1)
-	// 			{
-	// 				perror("dup2");
-	// 				exit(1);
-	// 			}
-	// 			close(pi[0][1]);
-	// 			if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
-	// 			{
-	// 				perror("execve");
-	// 				exit(1);
-	// 			}
-	// 		}
-	// 		else
-	// 		{
-	// 			printf("else \n");
-	// 		}
-	// 	}
+	i = 0;
+	while (i < (argc - 3 ))
+	{
+		if (i == 0)
+		{
+			// printf("koko \n");
+			//should here execute the first process that read from file
+			if (pid[i] == 0)
+			{
+				printf("inside first process \n");
+				if (dup2(id.fd1, 0) == -1)
+				{
+					perror("dup2");
+					exit(1);
+				}
+				// close(id.fd1);
+				// close(id.pi[0]);
+				ft_close_all(id, i, argc, pi);
+				if (dup2(pi[0][1], 1) == -1)
+				{
+					perror("dup2");
+					exit(1);
+				}
+				close(pi[0][1]);
+				if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
+				{
+					perror("execve");
+					exit(1);
+				}
+			}
+			else
+			{
+				printf("else \n");
+			}
+		}
 		
-	// 	else if (i == (argc - 4))
-	// 	{
-	// 		// waitpid(pid[0], NULL,0);
-	// 		////should here execute the last process that write into file
-	// 		printf("last process \n");
-	// 	}
+		else if (i == (argc - 4))
+		{
+			// waitpid(pid[0], NULL,0);
+			////should here execute the last process that write into file
+			printf("last process \n");
+		}
 
-	// 	else
-	// 	{
-	// 		// waitpid(pid[0], NULL,0);
-	// 		//execute the others process(pipes) :
-	// 		printf("inter processes \n");	
-	// 	}
+		else
+		{
+			// waitpid(pid[0], NULL,0);
+			//execute the others process(pipes) :
+			printf("inter processes \n");	
+		}
 		
-	// 	i++;
-	// }
+		i++;
+	}
 	
 	
 	return (0);

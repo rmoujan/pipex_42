@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/16 12:32:50 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/16 15:01:17 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,25 @@ void	check_exist_cmdbns(t_arg **prg)
 	}
 }
 
-ft_closebns(int fd, int pi[][], int i, int argc)
+void	ft_close_all(t_fds id, int i,int argc, int **pi)
 {
+	//close first file !!!
+	close(id.fd1);
 	if (i == 0)
 	{
-		close(fd);
-	}
-	while (i < (argc - 4))
-	{
-		close(pi[i]);
 		i++;
+		close(pi[0][0]);
+		while (i < (argc - 4))
+		{
+			printf("insode close fct \n");
+			close(pi[i][0]);
+			close(pi[i][1]);
+			i++;
+		}
+	}
+	else
+	{
+		//close others pipes when i not equal to 0 !!!
+		
 	}
 }
