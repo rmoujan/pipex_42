@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/16 17:05:20 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/16 18:10:02 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char *argv[], char *const envp[])
 	getting_paths_bns(envp, prg);
 	concaten_pathscmd_bns(prg, argv);
 	check_exist_cmdbns(prg);
-	//
+int x = 0;
 	// int j = 0;
 	// i = 0;
 	// while (prg[j])
@@ -123,7 +123,9 @@ int	main(int argc, char *argv[], char *const envp[])
 					perror("dup2");
 					exit(1);
 				}
-				close(pi[0][1]);
+				i++;
+				write(pi[0][1], &i, sizeof(int));
+				// close(pi[0][1]);
 				if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
 				{
 					perror("execve");
@@ -133,154 +135,50 @@ int	main(int argc, char *argv[], char *const envp[])
 		else
 		{//parent process :
 		
+			read(pi[0][0], &i, sizeof(x));
+			// printf("\nfrom parent process i is ==%d\n", i);
 			while (i < (argc - 5))
 			{
+				read(pi[i][0], &i, sizeof(x));
 				pid[i] = fork();
 				if(pid[i] < 0)
-				ft_error("fork");
-				if (pid[i]  == 0)
+					ft_error("fork");
+				else if (pid[i]  == 0)
 				{
+					printf("child process number %d\n",i);
 					//child process :
+					if (dup2(pi[i][0], 0) == -1)
+					{
+						printf("first dup \n");
+						perror("dup2");
+						exit(1);
+					}
+					ft_close_all(id, i, argc, pi);
+					if (dup2(pi[0][1], 1) == -1)
+					{
+						printf("second dup \n");
+						perror("dup2");
+						exit(1);
+					}
+					i++;
+					write(pi[i][1], &i, sizeof(int));
+					// close(pi[0][1]);
+					if (execve(prg[i]->path[0], prg[i]->cmd, envp) == -1)
+					{
+						perror("execve");
+						exit(1);
+					}
 					return (0);
 				}
-				else
+				i++;
+			}
+			if (pid[i] != 0)
 				{
 					//parent process :
 					//should do the last process :
-					
+					printf("parent process \n");
+					while (wait(NULL) != -1);	
 				}
-			i++;
-			}
 		}
-	//creation processes :
-	// while (i < (argc - 3))
-	// {
-	// 	pid[i] = fork();
-	// 	if(pid[i] < 0)
-	// 		ft_error("fork");
-		// else if (pid[i] == 0 && i == 0)
-		// {
-		// 		// printf("koko \n");
-		// 		//should here execute the first process that read from file
-		// 		// printf("inside first process \n");
-		// 		if (dup2(id.fd1, 0) == -1)
-		// 		{
-		// 			printf("first dup \n");
-		// 			perror("dup2");
-		// 			exit(1);
-		// 		}
-		// 		ft_close_all(id, i, argc, pi);
-		// 		if (dup2(pi[0][1], 1) == -1)
-		// 		{
-		// 			printf("second dup \n");
-		// 			perror("dup2");
-		// 			exit(1);
-		// 		}
-		// 		close(pi[0][1]);
-		// 		if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
-		// 		{
-		// 			perror("execve");
-		// 			exit(1);
-		// 		}
-		// }
-		// 	if (pid[i] == 0)
-		// {
-			
-		// 		if (dup2(pi[0], 0) == -1)
-		// 		{
-		// 			printf("first dup \n");
-		// 			perror("dup2");
-		// 			exit(1);
-		// 		}
-		// 		ft_close_all(id, i, argc, pi);
-		// 		if (dup2(pi[0][1], 1) == -1)
-		// 		{
-		// 			printf("second dup \n");
-		// 			perror("dup2");
-		// 			exit(1);
-		// 		}
-		// 		close(pi[0][1]);
-		// 		if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
-		// 		{
-		// 			perror("execve");
-		// 			exit(1);
-		// 		}
-		// }
-	// return (0);
-		// else if (pid[i] == 0 && i == (argc - 4))
-		// {
-		// 	printf("last process and i == %d \n", (argc - 4));
-		// }
-		// else if (pid[i] == 0 && i != 0 && i != (argc - 4))
-		// {
-		// 	waitpid(pid[0], NULL, 0);
-		// 	printf("second process \n");
-		// }
-		i++;	
-		}
-
-	// i = 0;
-	// // working with processes :
-	// //wait for all the child processes to finish executing :
-	while (wait(NULL) != -1);
-	// while (i < (argc - 3))
-		//wait(NULL);
-	
-
-	//starting forking ::
-	// i = 0;
-	// while (i < (argc - 3 ))
-	// {
-	// 	if (i == 0)
-	// 	{
-	// 		// printf("koko \n");
-	// 		//should here execute the first process that read from file
-	// 		if (pid[i] == 0)
-	// 		{
-	// 			printf("inside first process \n");
-	// 			if (dup2(id.fd1, 0) == -1)
-	// 			{
-	// 				perror("dup2");
-	// 				exit(1);
-	// 			}
-	// 			// close(id.fd1);
-	// 			// close(id.pi[0]);
-	// 			ft_close_all(id, i, argc, pi);
-	// 			if (dup2(pi[0][1], 1) == -1)
-	// 			{
-	// 				perror("dup2");
-	// 				exit(1);
-	// 			}
-	// 			close(pi[0][1]);
-	// 			if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
-	// 			{
-	// 				perror("execve");
-	// 				exit(1);
-	// 			}
-	// 		}
-	// 		else
-	// 		{
-	// 			printf("else \n");
-	// 		}
-	// 	}
-		
-	// 	else if (i == (argc - 4))
-	// 	{
-	// 		// waitpid(pid[0], NULL,0);
-	// 		////should here execute the last process that write into file
-	// 		printf("last process \n");
-	// 	}
-
-	// 	else
-	// 	{
-	// 		// waitpid(pid[0], NULL,0);
-	// 		//execute the others process(pipes) :
-	// 		printf("inter processes \n");	
-	// 	}
-		
-	// 	i++;
-	// }
-	
-	
-	return (0);
+		return (0);
 }
