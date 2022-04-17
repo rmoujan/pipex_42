@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/17 15:32:23 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/17 17:50:13 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,30 +102,44 @@ void	ft_close_all(t_fds id, int i,int argc, int **pi)
 	//close first file !!!
 	int j;
 	
+	j = i;
 	j = 0;	
 	close(id.fd1);
-	if (i == 0)
-	{
-		i++;
-		close(pi[0][0]);
-		while (i < (argc - 4))
-		{
-			//printf("insode close fct \n");
-			close(pi[i][0]);
-			close(pi[i][1]);
-			i++;
-		}
-	}
-	else
-	{
+
 		while (j < (argc - 4))
 		{
-			if (j != (i - 1))
-			{
+			// if (j != (i))
+			// {
 				close(pi[j][0]);
 				close(pi[j][1]);
-			}
+			// }
 			j++;
 		}
-	}
+
+	
+	//**
+	// if (i == 0)
+	// {
+	// 	i++;
+	// 	// close(pi[0][0]);
+	// 	while (i < (argc - 4))
+	// 	{
+	// 		//printf("insode close fct \n");
+	// 		close(pi[i][0]);
+	// 		close(pi[i][1]);
+	// 		i++;
+	// 	}
+	// }
+	// else
+	// {
+		// while (j < (argc - 4))
+		// {
+		// 	if (j != (i - 1))
+		// 	{
+		// 		close(pi[j][0]);
+		// 		close(pi[j][1]);
+		// 	}
+		// 	j++;
+		// }
+	// }
 }
