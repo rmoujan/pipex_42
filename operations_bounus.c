@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/17 11:25:05 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/17 15:32:23 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_close_all(t_fds id, int i,int argc, int **pi)
 		close(pi[0][0]);
 		while (i < (argc - 4))
 		{
-			printf("insode close fct \n");
+			//printf("insode close fct \n");
 			close(pi[i][0]);
 			close(pi[i][1]);
 			i++;
