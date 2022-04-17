@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/16 18:30:03 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/17 13:11:35 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	main(int argc, char *argv[], char *const envp[])
 	getting_paths_bns(envp, prg);
 	concaten_pathscmd_bns(prg, argv);
 	check_exist_cmdbns(prg);
-int x = 0;
 	// int j = 0;
 	// i = 0;
 	// while (prg[j])
@@ -109,7 +108,7 @@ int x = 0;
 		{
 				// printf("koko \n");
 				//should here execute the first process that read from file
-				printf("inside first process \n");
+				printf("inside first process and i == %d\n", i);
 				if (dup2(id.fd1, 0) == -1)
 				{
 					printf("first dup \n");
@@ -125,7 +124,7 @@ int x = 0;
 				}
 				i++;
 				write(pi[0][1], &i, sizeof(int));
-				// close(pi[0][1]);
+				close(pi[0][1]);
 				if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
 				{
 					perror("execve");
@@ -135,14 +134,16 @@ int x = 0;
 		else
 		{
 			//parent process :
-			printf("une seule fois \n");
-			read(pi[0][0], &i, sizeof(x));
+			wait(NULL);
+			// printf("une seule fois \n");
+			// read(pi[0][0], &i, sizeof(x));
 			printf("\n from parent process i is == %d \n", i);
 			//had while hiya li 3eliha kolshiii !!!!!!
+			i++;
 			while (i <= (argc - 5))
 			{
 				printf("inside while \n");
-				read(pi[i - 1][0], &i, sizeof(x));
+				// read(pi[i - 1][0], &i, sizeof(x));
 				pid[i] = fork();
 				if(pid[i] < 0)
 					ft_error("fork");
@@ -150,35 +151,40 @@ int x = 0;
 				{
 					printf("child process number %d \n",i);
 					//child process :
-					if (dup2(pi[i][0], 0) == -1)
+					ft_close_all(id, i, argc, pi);
+					close(pi[i - 1][1]);
+					if (dup2(pi[i - 1][0], 0) == -1)
 					{
 						printf("first dup \n");
 						perror("dup2");
 						exit(1);
 					}
-					ft_close_all(id, i, argc, pi);
+					close(pi[i - 1][0]);
 					if (dup2(pi[i][1], 1) == -1)
 					{
 						printf("second dup \n");
 						perror("dup2");
 						exit(1);
 					}
-					i++;
-					write(pi[i][1], &i, sizeof(int));
-					// close(pi[0][1]);
+					// i++;
+					// write(pi[i][1], &i, sizeof(int));
+					close(pi[i][1]);
 					if (execve(prg[i]->path[0], prg[i]->cmd, envp) == -1)
 					{
 						perror("execve");
 						exit(1);
 					}
 				}
+				printf("\n after execev \n");
+				i++;
 			}
 			if (pid[i] != 0)
 				{
-					//parent process :
+					wait(NULL);
+					//parent process:
 					//should do the last process when cmd send the output to file:
 					printf("parent process \n");
-					while (wait(NULL) != -1);	
+						
 				}
 		}
 		return (0);
