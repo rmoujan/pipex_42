@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/17 23:57:57 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/18 22:19:48 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,21 @@ int	main(int argc, char *argv[], char *const envp[])
 					perror("dup2");
 					exit(1);
 				}
+				// ft_close_all(id, i, argc, pi);
 				// close(pi[0][1]);
-				ft_close_all(id, i, argc, pi);
 				if (execve(prg[0]->path[0], prg[0]->cmd, envp) == -1)
 				{
 					perror("execve");
 					exit(1);
 				}
-	}
+		}
 		else
 		{
 			//parent process :
 			// waitpid(pid[i], NULL, 0);
 			i++;
 			printf("la valeur de i avant while is %d \n ", i);
+			//hena fash kayn error (fe close functions) !!!
 			while (i <= (argc - 5))
 			{
 				printf("inside while \n");
@@ -132,7 +133,6 @@ int	main(int argc, char *argv[], char *const envp[])
 						perror("dup2");
 						exit(1);
 					}
-					// close(pi[i][1]);
 					// ft_close_all(id, i, argc, pi);
 					if (execve(prg[i]->path[0], prg[i]->cmd, envp) == -1)
 					{
@@ -140,18 +140,12 @@ int	main(int argc, char *argv[], char *const envp[])
 						exit(1);
 					}
 				}
-			
 				printf("after execev\n");
 					i++;
 				}//end while
 			
 			}//end else
-
-			// while(waitpid(pid[i], NULL, 0));
-			// for (int j = 0; j< (argc - 4); j++)
-			// 	waitpid(pid[j], NULL, 0);
-			// if (frk != 0)
-			// {
+			
 				//parent process:
 				//should do the last process when cmd send the output to file:
 				printf("from parent process (the last process ) is %d\n", i);
@@ -161,14 +155,14 @@ int	main(int argc, char *argv[], char *const envp[])
 					ft_error("fork");
 				else if (frk== 0)
 				{
-					// close(pi[i - 1][1]);
+					close(pi[i - 1][1]);
 					if (dup2(pi[i - 1][0], 0) == -1)
 					{
 						printf("first dup \n");
 						perror("dup2");
 						exit(1);
 					}
-					// close(pi[i - 1][0]);
+					close(pi[i - 1][0]);
 					if (dup2(id.fd2, 1) == -1)
 					{
 						printf("second dup \n");
@@ -185,8 +179,9 @@ int	main(int argc, char *argv[], char *const envp[])
 				else
 				{
 					//parent process :
+					// for(int i =0; i < argc - 3; i++)
 					waitpid(-1, NULL, 0);
-					for (int j = 0; j <(argc - 4); j++)
+					for (int j = 0; j < (argc - 4); j++)
 					{
 						close(pi[j][0]);
 						close(pi[j][1]);
@@ -194,8 +189,7 @@ int	main(int argc, char *argv[], char *const envp[])
 					close(id.fd1);
 					close(id.fd2);
 				}
-			// }
-			
-		
+			// waitpid(-1, NULL, 0);
+
 	return (0);
 }
