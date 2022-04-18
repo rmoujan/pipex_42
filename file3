@@ -1,0 +1,4 @@
+NAME=pipex
+NAME2=pipex_bns
+SRC=pipex.c\
+SRCBNS=bns_pipex.c\
