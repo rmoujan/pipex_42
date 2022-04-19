@@ -10,7 +10,9 @@ SRC=pipex.c\
 
 SRCBNS=bns_pipex.c\
        operations_bounus.c\
-	   handle_errors_bns.c
+	   handle_errors_bns.c\
+	   ./gnl/get_next_line.c\
+	   ./gnl/get_next_line_utils.c 
 
 
 OBJ = $(subst .c,.o,$(SRC))
@@ -18,7 +20,7 @@ OBJBNS = $(subst .c,.o,$(SRCBNS))
 lib = ./libft/libft.a
 libobj = ./libft/*.o
 
-all : $(NAME) 
+all : $(NAME)
 
 $(NAME):${OBJ}
 	@make -C libft

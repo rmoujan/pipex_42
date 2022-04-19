@@ -6,12 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/17 17:50:13 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:32:13 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
+#include "gnl/get_next_line.h"
 
 void	checks_error_bns(int argc)
 {

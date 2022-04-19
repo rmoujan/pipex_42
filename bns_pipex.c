@@ -6,12 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/19 14:00:53 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:34:57 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
+#include "gnl/get_next_line.h"
 
 //handle multiple pipes :
 void	ft_error(char *str)
@@ -34,6 +35,7 @@ int	main(int argc, char *argv[], char *const envp[])
     int **pi; 
 	t_arg **prg;
 	t_fds	id;
+	char *str;
 	
 	i = 0;
 	j = 0;
@@ -59,11 +61,16 @@ int	main(int argc, char *argv[], char *const envp[])
 	//END of preparing cmds and checks ERRORS !!!!
 	
 	// starting creating processes and creating pipes
-	id.fd1 = open(argv[1], O_RDWR | O_CREAT, 0666);
-	id.fd2 = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
+	if (ft_strcmp(argv[1], "here_doc\0") != 0)
+		id.fd1 = open(argv[1], O_RDWR | O_CREAT, 0666);
+	if (ft_strcmp(argv[1], "here_doc\0") != 0)
+		id.fd2 = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
+	else
+		id.fd2 = open(argv[argc - 1], O_RDWR | O_APPEND | O_CREAT, 0666);
+	
 	if (id.fd1 == -1 || id.fd2 == -1)
 		ft_exit();
-	// creation of the pipe:
+	//creation of the pipe:
 	i = 0;
     while (i < (argc - 4))
     {
@@ -72,7 +79,22 @@ int	main(int argc, char *argv[], char *const envp[])
 		i++;
 	}
 	i = 0;
+	//when the input is from HEREDOC :
+	if (ft_strcmp(argv[1], "here_doc\0") == 0)
+	{
+		str = get_next_line(0);
+		while (strcmp(str, argv[2]) == 0)
+		{
+			printf("%s \n", str);
+			str = get_next_line(0);
+		}
+		
+		printf("insid herdoc \n");
+	}
+	//when the input is not the heredoc !!!
 	//creation first process that read from file and execute cmd :
+	else
+	{
 	frk = fork();
 	if(frk < 0)
 		ft_error("fork");
@@ -133,5 +155,7 @@ int	main(int argc, char *argv[], char *const envp[])
 			}
             close(id.fd1);
 			close(id.fd2);
+	}
+	
 	return (0);
 }

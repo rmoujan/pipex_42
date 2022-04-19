@@ -6,12 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:22:36 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 18:17:08 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:31:37 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
+#include "gnl/get_next_line.h"
 
 void	ft_checkbns(t_arg **prg)
 {
