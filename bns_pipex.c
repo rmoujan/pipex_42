@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/19 18:24:42 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/19 23:58:28 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ int	main(int argc, char *argv[], char *const envp[])
 {
 	int i;
 	int j;
-	pid_t frk;
+	// pid_t frk;
     int **pi; 
 	t_arg **prg;
 	t_fds	id;
 	char *str;
-	t_fds idoc;
+	// t_fds idoc;
+	int pidoc[2][2];
 	
 	
 	i = 0;
@@ -84,84 +85,104 @@ int	main(int argc, char *argv[], char *const envp[])
 	//when the input is from HEREDOC :
 	if (ft_strcmp(argv[1], "here_doc\0") == 0)
 	{
-		if (pipe(idoc.pi) == -1)
+		if (pipe(pidoc[0]) == -1)
 			ft_error("pipe");
 		
 		write(0,"heredoc>", 8);
 		str = get_next_line(0);
+		str = ft_strtrim(str, "\n");
 		while (strcmp(str, argv[2]) != 0)
 		{
+			str = ft_strjoin(str, "\n");
 			write(0,"heredoc>", 8);
-			write(idoc.pi[1], str, ft_strlen(str));
+			write(pidoc[0][1], str, ft_strlen(str));
+			free(str);
 			str = get_next_line(0);
+			str = ft_strtrim(str, "\n");
 		}
+		close(pidoc[0][1]);
+		//starting forking :
+		
+		
+		// printf("*** output the data from the pipe[0][0] ***\n");
+		// // read((pidoc[0][0]), str, 1000);
+		// str = get_next_line(pidoc[0][0]);
+		// 	// printf("error \n");
+		// printf("the str is == %s\n", str);
+		// while (str)
+		// {
+		// 	printf("|%s|\n", str);
+		// 	str = get_next_line(pidoc[0][0]);
+		// }
+		
 		printf("inside heredoc \n");
 	}
+	
 	//when the input is not the heredoc !!!
 	//creation first process that read from file and execute cmd :
-	else
-	{
-	frk = fork();
-	if(frk < 0)
-		ft_error("fork");
-	else if (frk == 0)
-		{
+	// else
+	// {
+	// frk = fork();
+	// if(frk < 0)
+	// 	ft_error("fork");
+	// else if (frk == 0)
+	// 	{
 
-			while (i < (argc - 3))
-			{
-				frk = fork();
-				if(frk < 0)
-					ft_error("fork");
-				else if (frk  == 0)
-				{
-				   while (j < (argc - 4))
-					{
-						if (j != (i - 1))
-							close(pi[j][0]);
+	// 		while (i < (argc - 3))
+	// 		{
+	// 			frk = fork();
+	// 			if(frk < 0)
+	// 				ft_error("fork");
+	// 			else if (frk  == 0)
+	// 			{
+	// 			   while (j < (argc - 4))
+	// 				{
+	// 					if (j != (i - 1))
+	// 						close(pi[j][0]);
 					
-						if (j != i)
-							close(pi[j][1]);
-						j++;
-					}
-                    if (i == 0)
-                    {
-                        if (dup2(id.fd1, 0) == -1)
-							ft_error("dup2");
-                        close(id.fd1);
-                    }
-                    else if (i != 0)
-                    {
-                        if (dup2(pi[i - 1][0], 0) == -1)
-                            ft_error("dup2");
-                    }
-                    if (i == (argc - 4))
-                    {
-                        if (dup2(id.fd2, 1) == -1)
-                            ft_error("dup2");
-                    }
-                    else if (i != (argc - 4))
-                    {
-                        if (dup2(pi[i][1], 1) == -1)
-                            ft_error("dup2");
-                    }
-					if (execve(prg[i]->path[0], prg[i]->cmd, envp) == -1)
-						ft_error("execve");
-				}
-				i++;
-			}//end while
+	// 					if (j != i)
+	// 						close(pi[j][1]);
+	// 					j++;
+	// 				}
+    //                 if (i == 0)
+    //                 {
+    //                     if (dup2(id.fd1, 0) == -1)
+	// 						ft_error("dup2");
+    //                     close(id.fd1);
+    //                 }
+    //                 else if (i != 0)
+    //                 {
+    //                     if (dup2(pi[i - 1][0], 0) == -1)
+    //                         ft_error("dup2");
+    //                 }
+    //                 if (i == (argc - 4))
+    //                 {
+    //                     if (dup2(id.fd2, 1) == -1)
+    //                         ft_error("dup2");
+    //                 }
+    //                 else if (i != (argc - 4))
+    //                 {
+    //                     if (dup2(pi[i][1], 1) == -1)
+    //                         ft_error("dup2");
+    //                 }
+	// 				if (execve(prg[i]->path[0], prg[i]->cmd, envp) == -1)
+	// 					ft_error("execve");
+	// 			}
+	// 			i++;
+	// 		}//end while
 			
-			}//end else
+	// 		}//end else
 			
-            if (waitpid(-1, NULL, 0) == -1)
-				ft_error("waitpid");
-			for (int j = 0; j < (argc - 4); j++)
-			{
-				close(pi[j][0]);
-				close(pi[j][1]);
-			}
-            close(id.fd1);
-			close(id.fd2);
-	}
+    //         if (waitpid(-1, NULL, 0) == -1)
+	// 			ft_error("waitpid");
+	// 		for (int j = 0; j < (argc - 4); j++)
+	// 		{
+	// 			close(pi[j][0]);
+	// 			close(pi[j][1]);
+	// 		}
+    //         close(id.fd1);
+	// 		close(id.fd2);
+	// }
 	
 	return (0);
 }
