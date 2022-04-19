@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/16 14:40:44 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/19 13:37:18 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ struct s_fds{
 
 typedef struct s_fdbns		t_fdbns;
 struct s_fdbns{
-	// pid_t	pid[argc - 3];
-    // int		pi[argc - 4][2];
 	int		fd1;
 	int		fd2;
 };

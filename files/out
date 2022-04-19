@@ -1,19 +1,26 @@
-Makefile
-bns_pipex.c
-bns_vers2.c
-bns_vers2.o
-file2
-file3
-files
-handle_errors.c
-handle_errors_bns.c
-handle_errors_bns.o
-libft
-operations.c
-operations_bounus.c
-operations_bounus.o
-pipex.c
-pipex.h
-pipex_bns
-processes.c
-tests
+total 184
+drwxr-xr-x  25 rmoujan  2019    850 Apr 19 13:52 .
+drwx------  31 rmoujan  2019   1054 Apr 18 00:11 ..
+-rw-r--r--@  1 rmoujan  2019   6148 Apr 13 15:25 .DS_Store
+drwxr-xr-x  12 rmoujan  2019    408 Apr 19 12:33 .git
+-rw-r--r--   1 rmoujan  2019     24 Apr  7 15:14 .gitignore
+-rw-r--r--   1 rmoujan  2019    667 Apr 19 13:43 Makefile
+-rw-r--r--   1 rmoujan  2019   3597 Apr 19 13:52 bns_pipex.c
+-rw-r--r--   1 rmoujan  2019   2980 Apr 19 13:52 bns_pipex.o
+-rw-r--r--   1 rmoujan  2019   4074 Apr 19 13:38 bns_vers2.c
+-rw-r--r--   1 rmoujan  2019   3028 Apr 19 13:39 bns_vers2.o
+-rw-r--r--   1 rmoujan  2019      9 Apr 18 00:10 file2
+-rw-r--r--   1 rmoujan  2019     60 Apr 18 00:07 file3
+drwxr-xr-x  18 rmoujan  2019    612 Apr 18 22:58 files
+-rw-r--r--   1 rmoujan  2019   1688 Apr 11 14:58 handle_errors.c
+-rw-r--r--   1 rmoujan  2019   1849 Apr 14 18:17 handle_errors_bns.c
+-rw-r--r--   1 rmoujan  2019   1716 Apr 19 13:52 handle_errors_bns.o
+drwxr-xr-x  85 rmoujan  2019   2890 Apr 19 13:52 libft
+-rw-r--r--   1 rmoujan  2019   1960 Apr 14 12:07 operations.c
+-rw-r--r--   1 rmoujan  2019   2674 Apr 17 17:50 operations_bounus.c
+-rw-r--r--   1 rmoujan  2019   2720 Apr 19 13:52 operations_bounus.o
+-rw-r--r--   1 rmoujan  2019   2088 Apr 14 18:46 pipex.c
+-rw-r--r--   1 rmoujan  2019   2498 Apr 19 13:37 pipex.h
+-rwxr-xr-x   1 rmoujan  2019  14104 Apr 19 13:52 pipex_bns
+-rw-r--r--   1 rmoujan  2019   2000 Apr 14 12:16 processes.c
+drwxr-xr-x  29 rmoujan  2019    986 Apr 19 13:40 tests

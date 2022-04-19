@@ -8,7 +8,7 @@ SRC=pipex.c\
 	processes.c\
 	handle_errors.c
 
-SRCBNS=bns_vers2.c\
+SRCBNS=bns_pipex.c\
        operations_bounus.c\
 	   handle_errors_bns.c
 
