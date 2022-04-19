@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/19 17:34:57 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/19 18:24:42 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	main(int argc, char *argv[], char *const envp[])
 	t_arg **prg;
 	t_fds	id;
 	char *str;
+	t_fds idoc;
+	
 	
 	i = 0;
 	j = 0;
@@ -82,14 +84,18 @@ int	main(int argc, char *argv[], char *const envp[])
 	//when the input is from HEREDOC :
 	if (ft_strcmp(argv[1], "here_doc\0") == 0)
 	{
+		if (pipe(idoc.pi) == -1)
+			ft_error("pipe");
+		
+		write(0,"heredoc>", 8);
 		str = get_next_line(0);
-		while (strcmp(str, argv[2]) == 0)
+		while (strcmp(str, argv[2]) != 0)
 		{
-			printf("%s \n", str);
+			write(0,"heredoc>", 8);
+			write(idoc.pi[1], str, ft_strlen(str));
 			str = get_next_line(0);
 		}
-		
-		printf("insid herdoc \n");
+		printf("inside heredoc \n");
 	}
 	//when the input is not the heredoc !!!
 	//creation first process that read from file and execute cmd :

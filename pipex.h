@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/19 13:37:18 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/19 18:08:02 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ struct s_fdbns{
 	int		fd1;
 	int		fd2;
 };
+
 
 //*** maindatory part for pipex ***//
 void	checks_errors(int argc);
