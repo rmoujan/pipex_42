@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:51:52 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/18 23:16:52 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/19 12:29:44 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,18 @@ int	main(int argc, char *argv[], char *const envp[])
 					ft_error("fork");
 				else if (frk  == 0)
 				{
+              for (int j = 0; j < (argc - 4); j++)
+			    {
+                    if (j != (i - 1))
+                    {
+                        close(pi[j][0]);
+                    } 
+                  
+                    if (j != i)
+                    {
+                        close(pi[j][1]);
+                    }   
+                }
 					printf("child process number %d \n",i);
                     if (i == 0)
                     {
@@ -101,7 +113,7 @@ int	main(int argc, char *argv[], char *const envp[])
                     else if (i != 0)
                     {
                         printf("when i not equal zero %d\n", i);
-                        close(pi[i - 1][1]);
+                        // close(pi[i - 1][1]);
                         if (dup2(pi[i - 1][0], 0) == -1)
                         {
                             printf("first dup \n");
@@ -112,7 +124,7 @@ int	main(int argc, char *argv[], char *const envp[])
                     if (i == (argc - 4))
                     {
                         printf("when i equal %d\n", (argc - 4));
-                        close(pi[i - 1][0]);
+                        // close(pi[i - 1][0]);
                         if (dup2(id.fd2, 1) == -1)
                         {
                             printf("second dup \n");
@@ -123,7 +135,7 @@ int	main(int argc, char *argv[], char *const envp[])
                     else if (i != (argc - 4))
                     {
                         printf("when i not equal (argc - 4) %d\n", i);
-                        close(pi[i][0]);
+                        // close(pi[i][0]);
                         if (dup2(pi[i][1], 1) == -1)
                         {
                             printf("second dup \n");
