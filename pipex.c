@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/19 18:34:24 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/20 02:05:15 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,37 @@ void	ft_exit(void)
 	exit(1);
 }
 
-void	concaten_pathscmd(t_arg *prg, char *argv)
-{
-	int	i;
+// void	concaten_pathscmd(t_arg *prg, char *argv)
+// {
+// 	int	i;
 
-	i = 0;
-	prg->cmd = ft_split(argv, ' ');
-	ft_check(prg);
-	while (prg->path[i])
-	{
-		prg->path[i] = ft_strjoin(prg->path[i], "/\0");
-		prg->path[i] = ft_strjoin(prg->path[i], prg->cmd[0]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	prg->cmd = ft_split(argv, ' ');
+// 	ft_check(prg);
+// 	while (prg->path[i])
+// 	{
+// 		prg->path[i] = ft_strjoin(prg->path[i], "/\0");
+// 		prg->path[i] = ft_strjoin(prg->path[i], prg->cmd[0]);
+// 		i++;
+// 	}
+// }
 
-void	getting_paths(char *const envp[], t_arg *prg)
-{
-	int	i;
+// void	getting_paths(char *const envp[], t_arg *prg)
+// {
+// 	int	i;
 
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH", 4) == 0)
-		{
-			prg->path = ft_split(envp[i], ':');
-			prg->path[0] = ft_strtrim(prg->path[0], "PATH=");
-			break ;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (envp[i])
+// 	{
+// 		if (ft_strncmp(envp[i], "PATH", 4) == 0)
+// 		{
+// 			prg->path = ft_split(envp[i], ':');
+// 			prg->path[0] = ft_strtrim(prg->path[0], "PATH=");
+// 			break ;
+// 		}
+// 		i++;
+// 	}
+// }
 
 int	main(int argc, char *argv[], char *const envp[])
 {

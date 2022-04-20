@@ -6,11 +6,17 @@ RM = rm -f
 SRC=pipex.c\
 	operations.c\
 	processes.c\
-	handle_errors.c
+	handle_errors.c\
+	operations2.c
 
 SRCBNS=bns_pipex.c\
        operations_bounus.c\
 	   handle_errors_bns.c\
+	   ft_heredoc.c\
+	   forking_heredoc.c\
+	   operations_heredoc.c\
+	   operations2.c\
+	   operations.c\
 	   ./gnl/get_next_line.c\
 	   ./gnl/get_next_line_utils.c 
 

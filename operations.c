@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:28:17 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 12:07:20 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/20 02:06:40 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	check_exist_cmd(t_arg *prg1, t_arg *prg2)
 	}
 }
 
-void	ft_close(t_fds id)
+void	close_main(t_fds id)
 {
 	close(id.pi[0]);
 	close(id.pi[1]);
