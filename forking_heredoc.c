@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:41:58 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/20 02:39:45 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/20 15:45:07 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	first_process(t_fds id, t_arg *prg1, char *const envp[])
 	char *str =NULL;
 	close(id.pidoc[0][1]);
 	read(id.pidoc[0][0], str, 1000);
-	printf("***++ %s***\n", str);
+	printf("***||| %s***\n", str);
 	if (dup2(id.pidoc[0][0], 0) == -1)
 	{
 		printf("first dup \n");
