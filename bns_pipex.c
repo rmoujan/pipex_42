@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/19 23:58:28 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/20 00:15:59 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,15 @@ int	main(int argc, char *argv[], char *const envp[])
 	t_arg **prg;
 	t_fds	id;
 	char *str;
-	// t_fds idoc;
+	t_fds idoc;
 	int pidoc[2][2];
+	int k;
+	
 	
 	
 	i = 0;
 	j = 0;
+	k = 0;
 	//checks errors and preparing cmds:
 	checks_error_bns(argc);
 	prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
@@ -102,7 +105,74 @@ int	main(int argc, char *argv[], char *const envp[])
 		}
 		close(pidoc[0][1]);
 		//starting forking :
-		
+		idoc.frk1 = fork();
+		if (idoc.frk1 < 0)
+			ft_error("fork");
+		else if (idoc.frk1 == 0)
+		{
+				//CHild process :
+				if (dup2(pidoc[0][0], 0) == -1)
+					ft_error("dup2");
+				close(pidoc[0][0]);
+				close(pidoc[1][0]);
+				if (dup2(pidoc[1][1], 1) == -1)
+				{
+					perror("dup2");
+					exit(1);
+				}
+				close(pidoc[1][1]);
+				if (execve(prg1->path[0], prg1->cmd, envp) == -1)
+				{
+					perror("execve");
+					exit(1);
+				}
+		}
+		else
+		{
+				//PARENT PROCESS :
+				id.frk2 = fork();
+				if (id.frk2 < 0)
+				{
+					perror("fork");
+					exit(1);
+				}
+				else if (id.frk2 == 0)
+				{
+					close(pidoc[1][1]);
+					if (dup2(pidoc[1][0], 0) == -1)
+					{
+						perror("dup2");
+						exit(1);
+					}
+					close(pidoc[1][0]);
+					if (dup2(id.fd2, 1) == -1)
+					{
+						perror("dup2");
+						exit(1);
+					}
+					close(id.fd2);
+					if (execve(prg2->path[0], prg2->cmd, envp) == -1)
+					{
+						perror("execve");
+						exit(1);
+					}
+				}
+				else
+				{
+						while (k < 2)
+						{
+							close(pidoc[k][1]);
+							close(pidoc[k][0]);
+							k++;
+						}
+						close(id.fd1);
+						close(id.fd2);
+						if (waitpid(id.frk1, NULL, 0) == -1)
+							perror("waitpid");
+						if (waitpid(id.frk2, NULL, 0) == -1)
+							perror("waitpid");
+				}
+		}
 		
 		// printf("*** output the data from the pipe[0][0] ***\n");
 		// // read((pidoc[0][0]), str, 1000);
