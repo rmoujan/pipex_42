@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/20 01:54:47 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/20 18:22:31 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	main(int argc, char *argv[], char *const envp[])
 	//checks errors and preparing cmds:
 	//should the main divide in two programmes : multiple pipes and heredoc :
 	//starting heredoc :::
-	ft_heredoc(argc, argv, envp);
+	if (strcmp(argv[1], "here_doc\0") == 0)
+		ft_heredoc(argc, argv, envp);
+	// else
+	// 	multiple_pipes();
 
 	
 	// checks_error_bns(argc);
