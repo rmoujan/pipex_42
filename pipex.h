@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 12:09:57 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 13:13:33 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ struct s_fds{
 	pid_t	frk2;
 	int		argc;
 	t_arg	**prg;
-	int		**pi;
+	int		**pii;
 	int		fd1;
 	int		fd2;
 	int		pi[2];
@@ -69,6 +69,8 @@ void	getting_paths_bns(char *const envp[], t_arg **prg);
 void	concaten_pathscmd_bns(t_arg **prg, char **argv);
 void	ft_checkbns(t_arg **prg);
 void	ft_close_all(t_fds id, int i,int argc, int **pi);
+void	multiple_pipe(int argc, char *argv[], char *const envp[]);
+void	checks_errormltpipe(int argc);
 // void	multiple_pipe(int argc, char *argv[], char *const envp[]);
 //*** bonus part for pipex "heredoc" ***//
 void	close_heredoc(t_fds id);

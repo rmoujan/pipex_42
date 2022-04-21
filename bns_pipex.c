@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 01:10:29 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 13:04:46 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char *argv[], char *const envp[])
 		ft_heredoc(argc, argv, envp);
 	else
 		multiple_pipe(argc, argv, envp);
+
 	
 	// checks_error_bns(argc);
 	// prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);

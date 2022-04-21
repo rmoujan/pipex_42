@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:20:24 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 12:43:39 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 13:13:19 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void close_mltpipes1(t_fds id, int i)
 	while (j < (id.argc - 4))
 	{
 			if (j != (i - 1))
-				close(id.pi[j][0]);
+				close(id.pii[j][0]);
 					
 			if (j != i)
-				close(id.pi[j][1]);
+				close(id.pii[j][1]);
 			j++;
 	}			
 }
@@ -40,7 +40,7 @@ void handle_mltpipes(t_fds id, int i, char *const envp[])
                     }
                     else if (i != 0)
                     {
-                        if (dup2(id.pi[i - 1][0], 0) == -1)
+                        if (dup2(id.pii[i - 1][0], 0) == -1)
                             ft_error("dup2");
                     }
                     if (i == (id.argc - 4))
@@ -50,7 +50,7 @@ void handle_mltpipes(t_fds id, int i, char *const envp[])
                     }
                     else if (i != (id.argc - 4))
                     {
-                        if (dup2(id.pi[i][1], 1) == -1)
+                        if (dup2(id.pii[i][1], 1) == -1)
                             ft_error("dup2");
                     }
 					if (execve(id.prg[i]->path[0], id.prg[i]->cmd, envp) == -1)
@@ -58,7 +58,7 @@ void handle_mltpipes(t_fds id, int i, char *const envp[])
 		
 }
 
-void while_mltpipes(t_fds id, char *argv[], char *const envp[])
+void while_mltpipes(t_fds id, char *const envp[])
 {
 	int i;
 
@@ -76,7 +76,7 @@ void while_mltpipes(t_fds id, char *argv[], char *const envp[])
 			}//end while
 }
 
-void forking_mltpipes(t_fds id, char *argv[], char *const envp[])
+void forking_mltpipes(t_fds id, char *const envp[])
 {
 	int j;
 
@@ -86,14 +86,14 @@ void forking_mltpipes(t_fds id, char *argv[], char *const envp[])
 		ft_error("fork");
 	else if (id.frk1 == 0)
 		{
-			while_mltpipes(id, argv, envp);	
+			while_mltpipes(id,envp);	
 		}//end else
     if (waitpid(-1, NULL, 0) == -1)
 		ft_error("waitpid");
 	while(j<(id.argc - 4))
 	{
-		close(id.pi[j][0]);
-		close(id.pi[j][1]);
+		close(id.pii[j][0]);
+		close(id.pii[j][1]);
 		j++;
 	}
     close(id.fd1);
@@ -113,15 +113,15 @@ void multpipes_chunk1(t_fds id, char *argv[], char *const envp[])
 	i = 0;
     while (i < (id.argc - 4))
     {
-        if (pipe(id.pi[i]) == -1)
+        if (pipe(id.pii[i]) == -1)
             ft_error("pipe");
 		i++;
 	}
-	forking_mltpipes(id, argv, envp);
+	forking_mltpipes(id, envp);
 }
 
 //checks args and preparing cmds ana paths .
-void	multi_pipes(int argc, char *argv[], char *const envp[])
+void	multiple_pipe(int argc, char *argv[], char *const envp[])
 {
 	int i;
     // int **pi; 
@@ -129,12 +129,12 @@ void	multi_pipes(int argc, char *argv[], char *const envp[])
 	t_fds	id;
 
 	i = 0;	
-	checks_error_bns(argc);
+	checks_errormltpipe(argc);
 	id.prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
-	id.pi = (int **) malloc(sizeof(int *) * (argc - 4));
+	id.pii = (int **) malloc(sizeof(int *) * (argc - 4));
 	while (i < (argc - 4))
 	{
-		id.pi[i] = (int *)malloc(sizeof(int) * 2);
+		id.pii[i] = (int *)malloc(sizeof(int) * 2);
 		i++;
 	}
 	i = 0;
@@ -151,5 +151,5 @@ void	multi_pipes(int argc, char *argv[], char *const envp[])
 	multpipes_chunk1(id, argv, envp);
 	//END of preparing cmds and checks ERRORS !!!!
 	// starting creating processes and creating pipes
-	return (0);
+
 }

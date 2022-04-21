@@ -16,6 +16,7 @@ SRCBNS=bns_pipex.c\
 	   forking_heredoc.c\
 	   operations_heredoc.c\
 	   operations2.c\
+	   multi_pipesnew.c\
 	   operations.c\
 	   ./gnl/get_next_line.c\
 	   ./gnl/get_next_line_utils.c 
