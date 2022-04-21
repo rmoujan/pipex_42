@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:28:03 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/20 18:44:38 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/20 23:35:43 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "gnl/get_next_line.h"
 
 // ./pipex here_doc LIMITER cmd cmd1 file :::
+//it's works but still needs normi !!!
 void ft_heredoc(int argc, char *argv[], char *const envp[])
 {
     t_fds	id;
@@ -36,22 +37,22 @@ void ft_heredoc(int argc, char *argv[], char *const envp[])
 		ft_exit();
     //when the input is from HEREDOC:
     //starting herdoc:
-	//get_input_herdoc(id, argv[2]);
-	char *str;
-    if (pipe(id.pidoc[0]) == -1)
-		ft_error("pipe");
-    write(0,"heredoc>", 8);
-	str = get_next_line(0);
-	str = ft_strtrim(str, "\n");
-	while (strcmp(str, argv[2]) != 0)
-	{
-		str = ft_strjoin(str, "\n");
-		write(0,"heredoc>", 8);
-		write(id.pidoc[0][1], str, ft_strlen(str));
-		free(str);
-		str = get_next_line(0);
-		str = ft_strtrim(str, "\n");	
-	}
+	get_input_herdoc(&id, argv[2]);
+	// char *str;
+    // if (pipe(id.pidoc[0]) == -1)
+	// 	ft_error("pipe");
+    // write(0,"heredoc>", 8);
+	// str = get_next_line(0);
+	// str = ft_strtrim(str, "\n");
+	// while (strcmp(str, argv[2]) != 0)
+	// {
+	// 	str = ft_strjoin(str, "\n");
+	// 	write(0,"heredoc>", 8);
+	// 	write(id.pidoc[0][1], str, ft_strlen(str));
+	// 	free(str);
+	// 	str = get_next_line(0);
+	// 	str = ft_strtrim(str, "\n");	
+	// }
 	forking_heredoc(id, prg1, prg2, envp);
 }
 ///NOTES : FASH KANSIFT PIPE L FCT B7ALI KAY LOSE DATA LI MESTORYA FIH

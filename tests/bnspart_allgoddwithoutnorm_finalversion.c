@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bns_pipex.c                                        :+:      :+:    :+:   */
+/*   bnspart_allgoddwithoutnorm_finalversion.c          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 01:10:29 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 00:56:32 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int	main(int argc, char *argv[], char *const envp[])
 	//starting heredoc :::
 	if (strcmp(argv[1], "here_doc\0") == 0)
 		ft_heredoc(argc, argv, envp);
-	else
-		multiple_pipe(argc, argv, envp);
+	// else
+	// 	multiple_pipes(argc, argv, envp);
+
 	
 	// checks_error_bns(argc);
 	// prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);

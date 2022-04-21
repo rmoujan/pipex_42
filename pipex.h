@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/20 02:08:56 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 01:31:29 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ int		ft_calcul(char *str);
 void	close_main(t_fds id);
 
 //*** bonus part for pipex "multiple pipes" ***//
-void	checks_error_bns(int argc);
+void	checks_errormltpipe(int argc);
 void	check_exist_cmdbns(t_arg **prg);
 void	getting_paths_bns(char *const envp[], t_arg **prg);
 void	concaten_pathscmd_bns(t_arg **prg, char **argv);
 void	ft_checkbns(t_arg **prg);
 void	ft_close_all(t_fds id, int i,int argc, int **pi);
-
+// void	multiple_pipe(int argc, char *argv[], char *const envp[]);
 //*** bonus part for pipex "heredoc" ***//
 void	close_heredoc(t_fds id);
 void	forking_heredoc(t_fds id, t_arg *prg1, t_arg *prg2, char *const envp[]);
@@ -74,7 +74,7 @@ void	errors_heredoc(int argc);
 void	ft_heredoc(int argc, char *argv[], char *const envp[]);
 void	concaten_pathscmd(t_arg *prg, char *argv);
 void	getting_paths(char *const envp[], t_arg *prg);
-void	get_input_herdoc(t_fds id, char *argv);
+void	get_input_herdoc(t_fds *id, char *argv);
 void	ft_error(char *str);
 
 /// libft's functions //

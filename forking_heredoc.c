@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:41:58 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/20 18:45:00 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/20 22:09:48 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ void	first_process(t_fds id, t_arg *prg1, char *const envp[])
 		if (dup2(id.pidoc[1][1], 1) == -1)
 			ft_error("dup2");
 		close(id.pidoc[1][1]);
-			while(1)
-	{
-		
-	}
 		if (execve(prg1->path[0], prg1->cmd, envp) == -1)
 		{
 			perror("execve");
@@ -56,10 +52,6 @@ void	second_process(t_fds id, t_arg *prg2, char *const envp[])
 					exit(1);
 				}
 				close(id.fd2);
-					while(1)
-	{
-		
-	}
 		if (execve(prg2->path[0], prg2->cmd, envp) == -1)
 			{
 				perror("execve");
