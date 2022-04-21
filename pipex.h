@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 01:31:29 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 12:09:57 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef struct s_fds		t_fds;
 struct s_fds{
 	pid_t	frk1;
 	pid_t	frk2;
+	int		argc;
+	t_arg	**prg;
+	int		**pi;
 	int		fd1;
 	int		fd2;
 	int		pi[2];
