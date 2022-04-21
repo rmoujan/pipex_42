@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 16:13:04 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 18:26:51 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct s_fdbns{
 };
 
 //*** maindatory part for pipex ***//
+
 void	checks_errors(int argc);
 void	test_files(char *argv[]);
 void	fct(char **argv, int file);
@@ -62,17 +63,18 @@ int		ft_calcul(char *str);
 void	close_main(t_fds id);
 
 //*** bonus part for pipex "multiple pipes" ***//
+
 void	checks_errormltpipe(int argc);
 void	check_exist_cmdbns(t_arg **prg);
 void	getting_paths_bns(char *const envp[], t_arg **prg);
 void	concaten_pathscmd_bns(t_arg **prg, char **argv);
 void	ft_checkbns(t_arg **prg);
-void	ft_close_all(t_fds id, int i, int argc, int **pi);
 void	multiple_pipe(int argc, char *argv[], char *const envp[]);
 void	checks_errormltpipe(int argc);
 void	close_mltpipes1(t_fds id, int i);
-// void	multiple_pipe(int argc, char *argv[], char *const envp[]);
+
 //*** bonus part for pipex "heredoc" ***//
+
 void	close_heredoc(t_fds id);
 void	forking_heredoc(t_fds id, t_arg *prg1, t_arg *prg2, char *const envp[]);
 void	errors_heredoc(int argc);

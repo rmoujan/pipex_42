@@ -6,17 +6,17 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:30:22 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/19 17:37:40 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 16:43:41 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef  GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-//# include <fcntl.h> 
+# include <fcntl.h> 
 # include <stdlib.h> 
 # include <unistd.h>
-#define BUFFER_SIZE 5
+# define BUFFER_SIZE 5
 
 char		*get_next_line(int fd);
 char		*ft_strjoin1(char **s1, char **s2);

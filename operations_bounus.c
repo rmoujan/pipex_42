@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 16:11:04 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 17:04:09 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,5 @@ void	check_exist_cmdbns(t_arg **prg)
 		}
 		j++;
 	}
+	//start free:
 }
-
-// void	ft_close_all(t_fds id, int i, int argc, int **pi)
-// {
-// 	int	j;
-
-// 	j = i;
-// 	j = 0;	
-// 	close(id.fd1);
-
-// 		while (j < (argc - 4))
-// 		{
-// 			close(pi[j][0]);
-// 			close(pi[j][1]);
-// 			j++;
-// 		}
-// }

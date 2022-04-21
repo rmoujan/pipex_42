@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:28:03 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 15:30:28 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 18:28:31 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,36 @@ void	ft_heredoc(int argc, char *argv[], char *const envp[])
 		ft_exit();
 	get_input_herdoc(&id, argv[2]);
 	forking_heredoc(id, prg1, prg2, envp);
+	// int i = 0;
+	// while (prg1->cmd[i])
+	// {
+	// 	//printf("**%s**\n", prg1->path[i]);
+	// 	free(prg1->cmd[i]);
+	// 	i++;
+	// }
+	// while (prg2->cmd[i])
+	// {
+	// 	//printf("**%s**\n", prg1->path[i]);
+	// 	free(prg2->cmd[i]);
+	// 	i++;
+	// }
+	// i = 0;
+	// while(prg1->path[i])
+	// {
+	// 	printf("**%s**\n", prg1->path[i]);
+	// 	i++;
+	// }
+	
+	// //free(prg1->path[0]);
+	// //free(prg1->path[1]);
+	// free(prg1->path);
+	// free(prg2->path);
+	// free(prg1);
+	// free(prg2);
+	
+	
+	// while(1)
+	// {
+		
+	// }
 }
