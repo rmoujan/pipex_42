@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 01:31:06 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 16:11:04 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	checks_errormltpipe(int argc)
 void	concaten_pathscmd_bns(t_arg **prg, char **argv)
 {
 	int	i;
-	int j;
-	int k;
+	int	j;
+	int	k;
 
 	j = 0;
 	k = 2;
 	while (prg[j])
 	{
-		prg[j]->cmd = ft_split(argv[k], ' ');	
+		prg[j]->cmd = ft_split(argv[k], ' ');
 		j++;
 		k++;
 	}
@@ -55,7 +55,7 @@ void	concaten_pathscmd_bns(t_arg **prg, char **argv)
 void	getting_paths_bns(char *const envp[], t_arg **prg)
 {
 	int	i;
-	int j;
+	int	j;
 
 	j = 0;
 	i = 0;
@@ -69,7 +69,7 @@ void	getting_paths_bns(char *const envp[], t_arg **prg)
 				prg[j]->path[0] = ft_strtrim(prg[j]->path[0], "PATH=");
 				j++;
 			}
-			break;
+			break ;
 		}
 		i++;
 	}	
@@ -78,7 +78,7 @@ void	getting_paths_bns(char *const envp[], t_arg **prg)
 void	check_exist_cmdbns(t_arg **prg)
 {
 	int	i;
-	int j;
+	int	j;
 
 	j = 0;
 	while (prg[j])
@@ -94,53 +94,22 @@ void	check_exist_cmdbns(t_arg **prg)
 			}
 			i++;
 		}
-		j++;		
+		j++;
 	}
 }
 
-void	ft_close_all(t_fds id, int i,int argc, int **pi)
-{
-	//close first file !!!
-	int j;
-	
-	j = i;
-	j = 0;	
-	close(id.fd1);
+// void	ft_close_all(t_fds id, int i, int argc, int **pi)
+// {
+// 	int	j;
 
-		while (j < (argc - 4))
-		{
-			// if (j != (i))
-			// {
-				close(pi[j][0]);
-				close(pi[j][1]);
-			// }
-			j++;
-		}
+// 	j = i;
+// 	j = 0;	
+// 	close(id.fd1);
 
-	
-	//**
-	// if (i == 0)
-	// {
-	// 	i++;
-	// 	// close(pi[0][0]);
-	// 	while (i < (argc - 4))
-	// 	{
-	// 		//printf("insode close fct \n");
-	// 		close(pi[i][0]);
-	// 		close(pi[i][1]);
-	// 		i++;
-	// 	}
-	// }
-	// else
-	// {
-		// while (j < (argc - 4))
-		// {
-		// 	if (j != (i - 1))
-		// 	{
-		// 		close(pi[j][0]);
-		// 		close(pi[j][1]);
-		// 	}
-		// 	j++;
-		// }
-	// }
-}
+// 		while (j < (argc - 4))
+// 		{
+// 			close(pi[j][0]);
+// 			close(pi[j][1]);
+// 			j++;
+// 		}
+// }

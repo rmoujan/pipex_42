@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 13:04:46 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 15:07:04 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,130 +29,9 @@ void	ft_exit(void)
 
 int	main(int argc, char *argv[], char *const envp[])
 {
-	// int i;
-	// int j;
-	// pid_t frk;
-    // int **pi; 
-	// t_arg **prg;
-	// t_fds	id;
-	// char *str;
-	// t_fds idoc;
-	// int pidoc[2][2];
-	// int k;
-
-	// i = 0;
-	// j = 0;
-	// k = 0;
-	//checks errors and preparing cmds:
-	//should the main divide in two programmes : multiple pipes and heredoc:
-	//starting heredoc :::
 	if (strcmp(argv[1], "here_doc\0") == 0)
 		ft_heredoc(argc, argv, envp);
 	else
 		multiple_pipe(argc, argv, envp);
-
-	
-	// checks_error_bns(argc);
-	// prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
-	// pi = (int **) malloc(sizeof(int *) * (argc - 4));
-	// while (i < (argc - 4))
-	// {
-	// 	pi[i] = (int *)malloc(sizeof(int) * 2);
-	// 	i++;
-	// }
-	// i = 0;
-	// while (i < (argc - 3))
-	// {
-	// 	prg[i] = (t_arg *)malloc(sizeof(t_arg));
-	// 	i++;
-	// }
-	// prg[i]= NULL;
-	// getting_paths_bns(envp, prg);
-	// concaten_pathscmd_bns(prg, argv);
-	// check_exist_cmdbns(prg);
-	// //END of preparing cmds and checks ERRORS !!!!
-	
-	// // starting creating processes and creating pipes
-	// id.fd1 = open(argv[1], O_RDWR | O_CREAT, 0666);
-	// id.fd2 = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
-	// if (id.fd1 == -1 || id.fd2 == -1)
-	// 	ft_exit();
-	// //creation of the pipe:
-	// i = 0;
-    // while (i < (argc - 4))
-    // {
-    //     if (pipe(pi[i]) == -1)
-    //         ft_error("pipe");
-	// 	i++;
-	// }
-	// i = 0;
-
-
-	
-
-	//starting multiple pipes !!!!
-	// //when the input is not the heredoc !!!
-	// //creation first process that read from file and execute cmd :
-	// frk = fork();
-	// if(frk < 0)
-	// 	ft_error("fork");
-	// else if (frk == 0)
-	// 	{
-
-	// 		while (i < (argc - 3))
-	// 		{
-	// 			frk = fork();
-	// 			if(frk < 0)
-	// 				ft_error("fork");
-	// 			else if (frk  == 0)
-	// 			{
-	// 			   while (j < (argc - 4))
-	// 				{
-	// 					if (j != (i - 1))
-	// 						close(pi[j][0]);
-					
-	// 					if (j != i)
-	// 						close(pi[j][1]);
-	// 					j++;
-	// 				}
-    //                 if (i == 0)
-    //                 {
-    //                     if (dup2(id.fd1, 0) == -1)
-	// 						ft_error("dup2");
-    //                     close(id.fd1);
-    //                 }
-    //                 else if (i != 0)
-    //                 {
-    //                     if (dup2(pi[i - 1][0], 0) == -1)
-    //                         ft_error("dup2");
-    //                 }
-    //                 if (i == (argc - 4))
-    //                 {
-    //                     if (dup2(id.fd2, 1) == -1)
-    //                         ft_error("dup2");
-    //                 }
-    //                 else if (i != (argc - 4))
-    //                 {
-    //                     if (dup2(pi[i][1], 1) == -1)
-    //                         ft_error("dup2");
-    //                 }
-	// 				if (execve(prg[i]->path[0], prg[i]->cmd, envp) == -1)
-	// 					ft_error("execve");
-	// 			}
-	// 			i++;
-	// 		}//end while
-			
-	// 		}//end else
-			
-    //         if (waitpid(-1, NULL, 0) == -1)
-	// 			ft_error("waitpid");
-	// 		for (int j = 0; j < (argc - 4); j++)
-	// 		{
-	// 			close(pi[j][0]);
-	// 			close(pi[j][1]);
-	// 		}
-    //         close(id.fd1);
-	// 		close(id.fd2);
-	
 	return (0);
 }

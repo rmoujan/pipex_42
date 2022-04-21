@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 17:22:36 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/19 17:31:37 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 16:05:29 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,28 @@
 void	ft_checkbns(t_arg **prg)
 {
 	int	i;
-    int j;
+	int	j;
 
 	i = 0;
-    j = 0;
-    while (prg[j])
-    {
-        if (ft_strcmp(prg[j]->cmd[0], "grep\0") == 0)
-	    {
-		    while (prg[j]->cmd[i])
-		    {
-			    if (prg[j]->cmd[i][0] == '\'')
-			    {
-				    if (ft_calcul(prg[j]->cmd[i]) == 1)
-				    {
-					    prg[j]->cmd[i] = ft_strtrim(prg[j]->cmd[i], "'\0");
-				    }
-				    else
-				    {
-					    ft_exit();
-				    }
-			    }
-			i++;
-		    }
-	    }
-        j++;  
-    }
+	j = 0;
+	while (prg[j])
+	{
+		if (ft_strcmp(prg[j]->cmd[0], "grep\0") == 0)
+		{
+			while (prg[j]->cmd[i])
+			{
+				if (prg[j]->cmd[i][0] == '\'')
+				{
+					if (ft_calcul(prg[j]->cmd[i]) == 1)
+						prg[j]->cmd[i] = ft_strtrim(prg[j]->cmd[i], "'\0");
+					else
+						ft_exit();
+				}
+				i++;
+			}
+		}
+		j++;
+	}
 }
 
 int	calcul_chunks(char *str)

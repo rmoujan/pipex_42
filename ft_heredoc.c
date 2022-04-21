@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:28:03 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/20 23:35:43 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 15:30:28 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 #include "libft/libft.h"
 #include "gnl/get_next_line.h"
 
-// ./pipex here_doc LIMITER cmd cmd1 file :::
-//it's works but still needs normi !!!
-void ft_heredoc(int argc, char *argv[], char *const envp[])
+//./pipex here_doc LIMITER cmd cmd1 file :::
+void	ft_heredoc(int argc, char *argv[], char *const envp[])
 {
-    t_fds	id;
+	t_fds	id;
 	t_arg	*prg1;
 	t_arg	*prg2;
-    
-    //first of all : checks all errors :
-    errors_heredoc(argc);
-    //preparing cmd :
+
+	errors_heredoc(argc);
 	prg1 = (t_arg *) malloc(sizeof(t_arg));
 	getting_paths(envp, prg1);
 	concaten_pathscmd(prg1, argv[3]);
@@ -35,25 +32,6 @@ void ft_heredoc(int argc, char *argv[], char *const envp[])
 	id.fd2 = open(argv[5], O_WRONLY | O_APPEND | O_CREAT, 0666);
 	if (id.fd1 == -1 || id.fd2 == -1)
 		ft_exit();
-    //when the input is from HEREDOC:
-    //starting herdoc:
 	get_input_herdoc(&id, argv[2]);
-	// char *str;
-    // if (pipe(id.pidoc[0]) == -1)
-	// 	ft_error("pipe");
-    // write(0,"heredoc>", 8);
-	// str = get_next_line(0);
-	// str = ft_strtrim(str, "\n");
-	// while (strcmp(str, argv[2]) != 0)
-	// {
-	// 	str = ft_strjoin(str, "\n");
-	// 	write(0,"heredoc>", 8);
-	// 	write(id.pidoc[0][1], str, ft_strlen(str));
-	// 	free(str);
-	// 	str = get_next_line(0);
-	// 	str = ft_strtrim(str, "\n");	
-	// }
 	forking_heredoc(id, prg1, prg2, envp);
 }
-///NOTES : FASH KANSIFT PIPE L FCT B7ALI KAY LOSE DATA LI MESTORYA FIH
-///NOTES2: HERE DOC IS NOT WORKING CUZ THE FIRST PIPE DON'T SAVE THE DATA WELL

@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_malloc.c                                      :+:      :+:    :+:   */
+/*   multpipes_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/14 15:46:12 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/14 16:32:44 by rmoujan          ###   ########.fr       */
+/*   Created: 2022/04/21 15:58:10 by rmoujan           #+#    #+#             */
+/*   Updated: 2022/04/21 15:59:43 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "pipex.h"
+#include "libft/libft.h"
+#include "gnl/get_next_line.h"
 
-int main()
+void	close_mltpipes1(t_fds id, int i)
 {
-    char **str;
+	int	j;
 
-    str = (char **)malloc(sizeof(char *) * 3);
-    int i = 0;
-    while (i < 3)
-    {
-         str[i] = (char *)malloc(sizeof(char ) * 10);
-         i++;
-    }
-    str[i] = NULL;
-    i = 0;
-    str[i]="hallo";
-    while (str[i])
-    {
-        printf("str[%d] == %s \n", i, str[i]);
-        printf("test \n");
-        i++;
-    }
-    return 0;
+	j = 0;
+	while (j < (id.argc - 4))
+	{
+		if (j != (i - 1))
+			close(id.pii[j][0]);
+		if (j != i)
+			close(id.pii[j][1]);
+		j++;
+	}			
 }

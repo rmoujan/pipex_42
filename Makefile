@@ -18,6 +18,7 @@ SRCBNS=bns_pipex.c\
 	   operations2.c\
 	   multi_pipesnew.c\
 	   operations.c\
+	   multpipes_tools.c\
 	   ./gnl/get_next_line.c\
 	   ./gnl/get_next_line_utils.c 
 
