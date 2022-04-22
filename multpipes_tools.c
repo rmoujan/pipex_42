@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:58:10 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 15:59:43 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 22:57:16 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,27 @@ void	close_mltpipes1(t_fds id, int i)
 			close(id.pii[j][1]);
 		j++;
 	}			
+}
+
+void	mlt_pipes1(int argc, char *argv[], char *const envp[], t_fds id)
+{
+	getting_paths_bns(envp, id.prg);
+	concaten_pathscmd_bns(id.prg, argv);
+	check_exist_cmdbns(id.prg);
+	id.argc = argc;
+	multpipes_chunk1(id, argv, envp);
+}
+
+void	mlt_pipes2(int argc, char *argv[], char *const envp[], t_fds id)
+{
+	int	i;
+
+	i = 0;
+	while (i < (argc - 4))
+		id.pii[i++] = (int *)malloc(sizeof(int) * 2);
+	i = 0;
+	while (i < (argc - 3))
+		id.prg[i++] = (t_arg *)malloc(sizeof(t_arg));
+	id.prg[i] = NULL;
+	mlt_pipes1(argc, argv, envp, id);
 }

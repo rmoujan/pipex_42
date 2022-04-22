@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 18:54:09 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 22:54:00 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	checks_errormltpipe(int argc);
 void	close_mltpipes1(t_fds id, int i);
 void	multpipes_chunk1(t_fds id, char *argv[], char *const envp[]);
 void	forking_mltpipes(t_fds id, char *const envp[]);
+void	mlt_pipes2(int argc, char *argv[], char *const envp[], t_fds id);
 
 //*** bonus part for pipex "heredoc" ***//
 

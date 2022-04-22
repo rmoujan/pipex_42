@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:20:24 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 15:57:56 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/21 23:26:24 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	forking_mltpipes(t_fds id, char *const envp[])
 	{
 		while_mltpipes(id, envp);
 	}
-	if (waitpid(-1, NULL, 0) == -1)
+	if (waitpid(id.frk1, NULL, 0) == -1)
 		ft_error("waitpid");
 	while (j < (id.argc - 4))
 	{
@@ -103,31 +103,31 @@ void	multpipes_chunk1(t_fds id, char *argv[], char *const envp[])
 	forking_mltpipes(id, envp);
 }
 
-// //checks args and preparing cmds ana paths .
-void	multiple_pipe(int argc, char *argv[], char *const envp[])
-{
-	int		i;
-	t_fds	id;
+// // //checks args and preparing cmds ana paths .
+// void	multiple_pipe(int argc, char *argv[], char *const envp[])
+// {
+// 	int		i;
+// 	t_fds	id;
 
-	i = 0;
-	checks_errormltpipe(argc);
-	id.prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
-	id.pii = (int **) malloc(sizeof(int *) * (argc - 4));
-	while (i < (argc - 4))
-	{
-		id.pii[i] = (int *)malloc(sizeof(int) * 2);
-		i++;
-	}
-	i = 0;
-	while (i < (argc - 3))
-	{
-		id.prg[i] = (t_arg *)malloc(sizeof(t_arg));
-		i++;
-	}
-	id.prg[i] = NULL;
-	getting_paths_bns(envp, id.prg);
-	concaten_pathscmd_bns(id.prg, argv);
-	check_exist_cmdbns(id.prg);
-	id.argc = argc;
-	multpipes_chunk1(id, argv, envp);
-}
+// 	i = 0;
+// 	checks_errormltpipe(argc);
+// 	id.prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
+// 	id.pii = (int **) malloc(sizeof(int *) * (argc - 4));
+// 	while (i < (argc - 4))
+// 	{
+// 		id.pii[i] = (int *)malloc(sizeof(int) * 2);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < (argc - 3))
+// 	{
+// 		id.prg[i] = (t_arg *)malloc(sizeof(t_arg));
+// 		i++;
+// 	}
+// 	id.prg[i] = NULL;
+// 	getting_paths_bns(envp, id.prg);
+// 	concaten_pathscmd_bns(id.prg, argv);
+// 	check_exist_cmdbns(id.prg);
+// 	id.argc = argc;
+// 	multpipes_chunk1(id, argv, envp);
+// }
