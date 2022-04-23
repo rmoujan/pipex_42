@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 04:54:56 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:44:12 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(int argc, char *argv[], char *const envp[])
 	prg2 = (t_arg *) malloc(sizeof(t_arg));
 	getting_paths(envp, prg2);
 	concaten_pathscmd(prg2, argv[3]);
-	id.fd1 = open(argv[1], O_RDWR | O_CREAT, 0666);
-	id.fd2 = open(argv[4], O_RDWR | O_TRUNC | O_CREAT, 0666);
+	id.fd1 = open(argv[1], O_RDWR); //mod
+	id.fd2 = open(argv[4], O_RDWR | O_TRUNC | O_CREAT, 0664);
 	if (id.fd1 == -1 || id.fd2 == -1)
 		ft_exit();
 	begin_forking(id, prg1, prg2, envp);

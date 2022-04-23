@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 05:03:17 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 17:54:32 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	herdoc_main1(char *argv[], char *const envp[], t_arg *prg2, t_arg *prg1)
 	concaten_pathscmd(prg2, argv[4]);
 }
 
-void	open_file(t_fds	id, char *argv[])
+void	open_file(t_fds	*id, char *argv[])
 {
-	id.fd2 = open(argv[5], O_WRONLY | O_APPEND | O_CREAT, 0666);
-	if (id.fd1 == -1 || id.fd2 == -1)
+	id->fd2 = open(argv[5], O_WRONLY | O_APPEND | O_CREAT, 0666);
+	if (id->fd1 == -1 || id->fd2 == -1)
 		ft_exit();
 }
 
@@ -54,7 +54,7 @@ int	main(int argc, char *argv[], char *const envp[])
 		prg1 = (t_arg *) malloc (sizeof(t_arg));
 		prg2 = (t_arg *) malloc (sizeof(t_arg));
 		herdoc_main1(argv, envp, prg2, prg1);
-		open_file(id, argv);
+		open_file(&id, argv);
 		get_input_herdoc(&id, argv[2]);
 		forking_heredoc(id, prg1, prg2, envp);
 	}
