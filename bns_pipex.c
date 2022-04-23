@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 03:42:24 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 04:01:26 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int	main(int argc, char *argv[], char *const envp[])
 		// printf("main insid else\n");
 		mlt_pipes2(argc, argv, envp, id);
 	}
+	// while(1)
+	// {
+		
+	// }
+	// system("leaks pipex_bns");
 	// int i = 0;
 	// printf("insid MAIN\n");
 	// while (id.prg[i])
