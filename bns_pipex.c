@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 22:55:41 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 00:48:49 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	herdoc_main1(char *argv[], char *const envp[], t_arg *prg2, t_arg *prg1)
 	concaten_pathscmd(prg1, argv[3]);
 	getting_paths(envp, prg2);
 	concaten_pathscmd(prg2, argv[4]);
-	check_exist_cmd(prg1, prg2);
+	check_exist_cmd(prg1);
+	check_exist_cmd(prg2);
 }
 
 int	main(int argc, char *argv[], char *const envp[])
@@ -43,6 +44,8 @@ int	main(int argc, char *argv[], char *const envp[])
 	t_arg	*prg2;
 	t_fds	id;
 
+	prg1 = NULL;
+	prg2 = NULL;
 	if (strcmp(argv[1], "here_doc\0") == 0)
 	{
 		errors_heredoc(argc);

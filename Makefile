@@ -12,7 +12,6 @@ SRC=pipex.c\
 SRCBNS=bns_pipex.c\
        operations_bounus.c\
 	   handle_errors_bns.c\
-	   ft_heredoc.c\
 	   forking_heredoc.c\
 	   operations_heredoc.c\
 	   operations2.c\

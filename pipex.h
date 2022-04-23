@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 22:54:00 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 00:26:03 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	fct(char **argv, int file);
 void	checks_errors(int argc);
 void	ft_exit(void);
 void	test_files(char *argv[]);
-void	check_exist_cmd(t_arg *prg1, t_arg *prg2);
+void	check_exist_cmd(t_arg *prg1);
 void	first_process(t_fds id, t_arg *prg1, char *const envp[]);
 void	second_process(t_fds id, t_arg *prg2, char *const envp[]);
 void	begin_forking(t_fds id, t_arg *prg1, t_arg *prg2, char *const envp[]);
