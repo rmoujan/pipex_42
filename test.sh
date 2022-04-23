@@ -1,2 +1,2 @@
 #!/bin/bash
-/usr/bin/grep A
+wc        -l

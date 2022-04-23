@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 02:04:41 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 03:34:38 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 04:47:12 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ int	check_script(t_arg *prg)
 	int	flag;
 
 	flag = 0;
-	// printf("prg->cmd[0] is |%s|\n", prg->cmd[0]);
-	// printf("prg->cmd[0] is |%s|\n", prg->cmd[1]);
 	if (access(prg->cmd[0], F_OK) != -1)
 	{
 		flag = 1;
 	}
-	// printf("flag is %d\n", flag);
 	return (flag);
 }
 
@@ -33,7 +30,6 @@ int	check_file(t_arg *prg)
 	int	fd;
 
 	fd = open(prg->cmd[0], O_RDWR, 0666);
-	// printf("fd is %d\n", fd);
 	return (fd);
 }
 
@@ -47,11 +43,9 @@ void	concaten_pathscmd(t_arg *prg, char *argv)
 	{
 		free(prg->path[0]);
 		prg->path[0] = ft_strdup(prg->cmd[0]);
-		// printf("insid if\n");
 	}
 	else
 	{
-		// printf("insid else\n");
 		ft_check(prg);
 		while (prg->path[i])
 		{

@@ -6,15 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 04:01:26 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 05:03:17 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
 #include "gnl/get_next_line.h"
-//hena fash khedama .. ghadi nerd kolshi lmain o 3ad normi fihhhhhha !!!!!
-// 21-04-2022
 //handle multiple pipes :
 void	ft_error(char *str)
 {
@@ -34,8 +32,13 @@ void	herdoc_main1(char *argv[], char *const envp[], t_arg *prg2, t_arg *prg1)
 	concaten_pathscmd(prg1, argv[3]);
 	getting_paths(envp, prg2);
 	concaten_pathscmd(prg2, argv[4]);
-	// check_exist_cmd(prg1);
-	// check_exist_cmd(prg2);
+}
+
+void	open_file(t_fds	id, char *argv[])
+{
+	id.fd2 = open(argv[5], O_WRONLY | O_APPEND | O_CREAT, 0666);
+	if (id.fd1 == -1 || id.fd2 == -1)
+		ft_exit();
 }
 
 int	main(int argc, char *argv[], char *const envp[])
@@ -44,17 +47,14 @@ int	main(int argc, char *argv[], char *const envp[])
 	t_arg	*prg2;
 	t_fds	id;
 
-	prg1 = NULL;
-	prg2 = NULL;
+	id.prg = NULL;
 	if (strcmp(argv[1], "here_doc\0") == 0)
 	{
 		errors_heredoc(argc);
 		prg1 = (t_arg *) malloc (sizeof(t_arg));
 		prg2 = (t_arg *) malloc (sizeof(t_arg));
 		herdoc_main1(argv, envp, prg2, prg1);
-		id.fd2 = open(argv[5], O_WRONLY | O_APPEND | O_CREAT, 0666);
-		if (id.fd1 == -1 || id.fd2 == -1)
-			ft_exit();
+		open_file(id, argv);
 		get_input_herdoc(&id, argv[2]);
 		forking_heredoc(id, prg1, prg2, envp);
 	}
@@ -63,54 +63,7 @@ int	main(int argc, char *argv[], char *const envp[])
 		checks_errormltpipe(argc);
 		id.prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
 		id.pii = (int **) malloc(sizeof(int *) * (argc - 4));
-		// printf("main insid else\n");
 		mlt_pipes2(argc, argv, envp, id);
 	}
-	// while(1)
-	// {
-		
-	// }
-	// system("leaks pipex_bns");
-	// int i = 0;
-	// printf("insid MAIN\n");
-	// while (id.prg[i])
-	// {
-	// 	printf("**id->cmd[%d]== %s **\n",i , id.cmd[i]);
-	// 	i++;
-	// }
-	//  i = 0;
-	//  printf("\\\\\\\\\\\\\\\n");
-	// while (prg2->path[i])
-	// {
-	// 	printf("**prg1->path[%d]== %s **\n",i , prg2->path[i]);
-	// 	i++;
-	// }
-
-	// int	i = 0;
-	// int j = 0;
-	// printf("main fct\n");
-	// while (id.prg[j])
-	// {
-	// 	i = 0;
-	// 	while (id.prg[j]->cmd[i])
-	// 	{
-	// 		printf("prg[%d]->cmd[%d] == %s\n", j,i,id.prg[j]->cmd[i]);
-	// 		i++;
-	// 	}
-	// 	j++;
-		
-	// }
-	// j = 0;
-	// while (id.prg[j])
-	// {
-	// 	i = 0;
-	// 	while (id.prg[j]->path[i])
-	// 	{
-	// 		printf("prg[%d]->path[%d] == %s\n", j,i,id.prg[j]->path[i]);
-	// 		i++;
-	// 	}
-	// 	j++;
-		
-	// }
 	return (0);
 }

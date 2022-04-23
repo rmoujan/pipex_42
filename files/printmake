@@ -7,6 +7,7 @@ forking_heredoc.c
 forking_heredoc.o
 gnl
 handle_errors.c
+handle_errors.o
 handle_errors_bns.c
 handle_errors_bns.o
 libft
@@ -22,8 +23,11 @@ operations_bounus.c
 operations_bounus.o
 operations_heredoc.c
 operations_heredoc.o
+pipex
 pipex.c
 pipex.h
+pipex.o
 pipex_bns
 processes.c
+processes.o
 test.sh

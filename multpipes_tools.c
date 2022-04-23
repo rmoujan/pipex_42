@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:58:10 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 03:31:24 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 04:50:09 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ void	close_mltpipes1(t_fds id, int i)
 void	mlt_pipes1(int argc, char *argv[], char *const envp[], t_fds id)
 {
 	getting_paths_bns(envp, id.prg);
-	// printf("main insid mltpipes2 \n");
 	concaten_pathscmd_bns(id.prg, argv);
-	// printf("main insid mltpipes3 \n");
-	// check_exist_cmdbns(id.prg);
 	id.argc = argc;
 	multpipes_chunk1(id, argv, envp);
 }
@@ -51,6 +48,5 @@ void	mlt_pipes2(int argc, char *argv[], char *const envp[], t_fds id)
 	while (i < (argc - 3))
 		id.prg[i++] = (t_arg *)malloc(sizeof(t_arg));
 	id.prg[i] = NULL;
-	// printf("main insid mltpipes1 \n");
 	mlt_pipes1(argc, argv, envp, id);
 }
