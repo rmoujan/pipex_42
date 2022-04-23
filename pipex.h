@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:06 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 00:26:03 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 03:11:35 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ void	begin_forking(t_fds id, t_arg *prg1, t_arg *prg2, char *const envp[]);
 void	ft_check(t_arg *prg);
 int		ft_calcul(char *str);
 void	close_main(t_fds id);
+int		check_script(t_arg *prg);
+int		check_file(t_arg *prg);
 
 //*** bonus part for pipex "multiple pipes" ***//
 
 void	checks_errormltpipe(int argc);
-void	check_exist_cmdbns(t_arg **prg);
+void	check_exist_cmdbns(t_arg *prg);
 void	getting_paths_bns(char *const envp[], t_arg **prg);
 void	concaten_pathscmd_bns(t_arg **prg, char **argv);
 void	ft_checkbns(t_arg **prg);

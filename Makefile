@@ -34,7 +34,7 @@ $(NAME):${OBJ}
 	$(CC) $(OBJ) $(lib) -o $(NAME)
 
 %.o : %.c
-	@${CC} -c ${CFLAGS} $< -o $@
+	${CC} -c ${CFLAGS} $< -o $@
 
 bonus :$(NAME2)
 

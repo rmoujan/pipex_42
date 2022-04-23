@@ -1,2 +1,2 @@
 #!/bin/bash
-grep lol
+/usr/bin/grep A

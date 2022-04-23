@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 00:48:49 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 03:42:24 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	herdoc_main1(char *argv[], char *const envp[], t_arg *prg2, t_arg *prg1)
 	concaten_pathscmd(prg1, argv[3]);
 	getting_paths(envp, prg2);
 	concaten_pathscmd(prg2, argv[4]);
-	check_exist_cmd(prg1);
-	check_exist_cmd(prg2);
+	// check_exist_cmd(prg1);
+	// check_exist_cmd(prg2);
 }
 
 int	main(int argc, char *argv[], char *const envp[])
@@ -63,7 +63,49 @@ int	main(int argc, char *argv[], char *const envp[])
 		checks_errormltpipe(argc);
 		id.prg = (t_arg **)malloc(sizeof(t_arg *) * (argc - 3) + 1);
 		id.pii = (int **) malloc(sizeof(int *) * (argc - 4));
+		// printf("main insid else\n");
 		mlt_pipes2(argc, argv, envp, id);
 	}
+	// int i = 0;
+	// printf("insid MAIN\n");
+	// while (id.prg[i])
+	// {
+	// 	printf("**id->cmd[%d]== %s **\n",i , id.cmd[i]);
+	// 	i++;
+	// }
+	//  i = 0;
+	//  printf("\\\\\\\\\\\\\\\n");
+	// while (prg2->path[i])
+	// {
+	// 	printf("**prg1->path[%d]== %s **\n",i , prg2->path[i]);
+	// 	i++;
+	// }
+
+	// int	i = 0;
+	// int j = 0;
+	// printf("main fct\n");
+	// while (id.prg[j])
+	// {
+	// 	i = 0;
+	// 	while (id.prg[j]->cmd[i])
+	// 	{
+	// 		printf("prg[%d]->cmd[%d] == %s\n", j,i,id.prg[j]->cmd[i]);
+	// 		i++;
+	// 	}
+	// 	j++;
+		
+	// }
+	// j = 0;
+	// while (id.prg[j])
+	// {
+	// 	i = 0;
+	// 	while (id.prg[j]->path[i])
+	// 	{
+	// 		printf("prg[%d]->path[%d] == %s\n", j,i,id.prg[j]->path[i]);
+	// 		i++;
+	// 	}
+	// 	j++;
+		
+	// }
 	return (0);
 }

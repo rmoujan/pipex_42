@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:31:28 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 00:43:42 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/23 02:07:54 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,28 @@ int	main(int argc, char *argv[], char *const envp[])
 	// printf("insid MAIN\n");
 	// while (prg1->cmd[i])
 	// {
-	// 	printf("**prg1->cmd[%d]== %s **\n",i , prg1->cmd[i]);
+	// 	printf("**prg1->cmd[%d]== %s**\n",i , prg1->cmd[i]);
 	// 	i++;
 	// }
 	//  i = 0;
 	//  printf("\\\\\\\\\\\\\\\n");
 	// while (prg1->path[i])
 	// {
-	// 	printf("**prg1->path[%d]== %s **\n",i , prg1->path[i]);
+	// 	printf("**prg1->path[%d]== %s**\n",i , prg1->path[i]);
+	// 	i++;
+	// }
+	// 	 i = 0;
+	// printf("PRG2\n");
+	// while (prg2->cmd[i])
+	// {
+	// 	printf("**prg2->cmd[%d]== %s**\n",i , prg2->cmd[i]);
+	// 	i++;
+	// }
+	//  i = 0;
+	//  printf("\\\\\\\\\\\\\\\n");
+	// while (prg1->path[i])
+	// {
+	// 	printf("**prg2->path[%d]== %s**\n",i , prg2->path[i]);
 	// 	i++;
 	// }
 	return (0);
