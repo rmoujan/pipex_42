@@ -6,13 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:29:26 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 04:44:09 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/24 00:16:38 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
+#include "../libft/libft.h"
+#include "../gnl/get_next_line.h"
 
 void	checks_errormltpipe(int argc)
 {

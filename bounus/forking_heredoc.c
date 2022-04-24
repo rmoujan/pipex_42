@@ -6,13 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:41:58 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 15:51:10 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/24 00:16:11 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
+#include "../libft/libft.h"
+#include "../gnl/get_next_line.h"
 
 void	first_process(t_fds id, t_arg *prg1, char *const envp[])
 {	
@@ -92,8 +92,8 @@ void	close_heredoc(t_fds id)
 	}
 	close(id.fd1);
 	close(id.fd2);
-	if (waitpid(id.frk1, NULL, 0) == -1)
+	if (waitpid(-1, NULL, 0) == -1)
 		perror("waitpid");
-	if (waitpid(id.frk2, NULL, 0) == -1)
+	if (waitpid(-1, NULL, 0) == -1)
 		perror("waitpid");
 }

@@ -6,13 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:58:10 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 17:54:48 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/24 00:16:35 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
+#include "../libft/libft.h"
+#include "../gnl/get_next_line.h"
 
 void	close_mltpipes1(t_fds id, int i)
 {

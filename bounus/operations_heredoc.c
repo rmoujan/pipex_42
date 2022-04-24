@@ -6,13 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:30:27 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/21 15:32:55 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/24 00:19:25 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
+#include "../libft/libft.h"
+#include "../gnl/get_next_line.h"
 
 void	errors_heredoc(int argc)
 {

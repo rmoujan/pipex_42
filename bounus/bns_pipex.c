@@ -6,13 +6,13 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/23 17:54:32 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/24 00:15:25 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
+#include "../libft/libft.h"
+#include "../gnl/get_next_line.h"
 //handle multiple pipes :
 void	ft_error(char *str)
 {
@@ -36,7 +36,7 @@ void	herdoc_main1(char *argv[], char *const envp[], t_arg *prg2, t_arg *prg1)
 
 void	open_file(t_fds	*id, char *argv[])
 {
-	id->fd2 = open(argv[5], O_WRONLY | O_APPEND | O_CREAT, 0666);
+	id->fd2 = open(argv[5], O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (id->fd1 == -1 || id->fd2 == -1)
 		ft_exit();
 }
