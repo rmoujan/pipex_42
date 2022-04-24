@@ -6,7 +6,7 @@
 /*   By: rmoujan < rmoujan@student.1337.ma>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:20:25 by rmoujan           #+#    #+#             */
-/*   Updated: 2022/04/24 00:15:25 by rmoujan          ###   ########.fr       */
+/*   Updated: 2022/04/24 02:48:48 by rmoujan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(int argc, char *argv[], char *const envp[])
 	t_fds	id;
 
 	id.prg = NULL;
+	if (argc == 1)
+		exit(1);
 	if (strcmp(argv[1], "here_doc\0") == 0)
 	{
 		errors_heredoc(argc);

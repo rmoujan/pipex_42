@@ -1,5 +1,5 @@
 NAME=pipex
-NAME2=pipex
+NAME2=./bounus/pipex
 CC=gcc
 CFLAGS= -Wall -Wextra -Werror
 RM = rm -f
